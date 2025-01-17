@@ -1,23 +1,46 @@
-import random
+from http.server import HTTPServer, BaseHTTPRequestHandler
+import subprocess
 
-def guess():
-    l = 1
-    h = 10000
-    print(f'Choose a number between {l} and {h}')
-    guess = random.randint(l,h)
-    feedback = str(input(f'Is {guess} too high (h), too low (l), or correct (c): '))
+HOST = "192.168.50.20"
+
+PORT = 9999
+
+class MaxHTTP(BaseHTTPRequestHandler):
     
-    while feedback != 'c':
-        if feedback == 'h':
-            h = guess
-            guess = random.randint(l,h)
-            feedback = str(input(f'Is {guess} too high (h), too low (l), or correct (c): '))
-        elif feedback == 'l':
-            l = guess
-            guess = random.randint(l,h)
-            feedback = str(input(f'Is {guess} too high (h), too low (l), or correct (c): '))
-            
-    print(f'{guess} is your number')
-        
-        
-guess()
+    def do_GET(self):
+        self.log_request_info()
+        external_output = self.call_external_script()
+        self.parse_request()
+
+
+
+        self.send_response(200)
+        self.send_header("Content-type", "text/html")
+        self.end_headers()
+
+        message = f"{external_output}"
+        print(f"{message}")
+        self.wfile.w
+from http.server import HTTPServer, BaseHTTPRequestHandler
+import subprocess
+
+HOST = "192.168.50.20"
+
+PORT = 9999
+
+class MaxHTTP(BaseHTTPRequestHandler):
+    
+    def do_GET(self):
+        self.log_request_info()
+        external_output = self.call_external_script()
+        self.parse_request()
+
+
+
+        self.send_response(200)
+        self.send_header("Content-type", "text/html")
+        self.end_headers()
+
+        message = f"{external_output}"
+        print(f"{message}")
+        self.wfile.w
