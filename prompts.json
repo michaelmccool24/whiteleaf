@@ -5,5 +5,12 @@
         "rag_ok": "real_domains.csv",
         "rag_bad": "generated_domains.csv",
         "cache": "cached_domains.csv"
+    },
+    "2nd one": {
+       "prompt": "Chat GPT please do stuff.",
+        "base_domain": "./RAG/2nd one/",
+        "rag_ok": "good stuff.csv",
+        "rag_bad": "bad stuff.csv",
+        "cache": "cached stuff.csv" 
     }
 }

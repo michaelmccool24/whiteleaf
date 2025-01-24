@@ -9,4 +9,5 @@ def main():
     
     print(prompts['DGA']['base_domain'])
 
+    
 main()
