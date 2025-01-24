@@ -1,0 +1,9 @@
+{
+    "DGA": {
+        "prompt": "Please determine on a scale from 1-100 the confidence that each of the following domains is DGA generated. Return the results as a newline seperated list with no other characters or stylistic elements.",
+        "base_domain": "./RAG/DGA_domains/",
+        "rag_ok": "real_domains.csv",
+        "rag_bad": "generated_domains.csv",
+        "cache": "cached_domains.csv"
+    }
+}
