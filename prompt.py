@@ -2,17 +2,13 @@ import subprocess
 import json
 import csv
 from openai import OpenAI
-from together import Together
 
 
 with open("openai_apikey", "r") as file:
         openai_key = file.read()
 
-with open("togetherai_apikey", "r") as file:
-        togetherai_key = file.read()
 
 client = OpenAI(api_key=openai_key)
-client2 = Together(api_key=togetherai_key)
 
 
 
@@ -63,7 +59,7 @@ def main(case, data):
 
     api_string = prompts[case]["prompt"]+"\n"+"\n".join(data)
 
-    response = together_call(api_string)
+    response = openai_call(api_string)
     print(response)
 
 
@@ -81,28 +77,6 @@ def openai_call(prompt):
              model=openai_model,
              messages=[{"role": "user", "content": prompt}
             ]
-        )
-
-        message_content = response.choices[0].message.content
-
-    except Exception as e:
-        print(f"An error occured: {e}")
-    
-    return(message_content)
-
-def together_call(prompt):
-    """Calls TogetherAI using the specified model and primpt, returns the response
-
-    Args:
-        prompt(str) the prompt string that is sent to the AI
-
-    Returns:
-        message_content(str) the response from the AI model
-    """
-    try:
-        response = client2.chat.completions.create(
-            model=togetherai_model,
-            messages=[{"role": "user", "content": prompt}],
         )
 
         message_content = response.choices[0].message.content
