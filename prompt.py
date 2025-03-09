@@ -1,42 +1,115 @@
 import subprocess
 import json
 import csv
-import openai
+from openai import OpenAI
+from together import Together
 
-ai_model = "gpt-3.5-turbo"
 
-def main(request):
+with open("openai_apikey", "r") as file:
+        openai_key = file.read()
 
-    with open("apikey", "r") as file:
-        key = file.read()
+with open("togetherai_apikey", "r") as file:
+        togetherai_key = file.read()
 
-    openai.api_key = key
+client = OpenAI(api_key=openai_key)
+client2 = Together(api_key=togetherai_key)
 
-    type = list(request.keys())[0]
 
+
+openai_model = "gpt-4o"
+togetherai_model = "deepseek-ai/DeepSeek-V3"
+
+test_data = ["WWW.XN--ZALGO075952-SJGB60AIGHL2I8JC3B0A2A97FTBLL0CZA.COM",
+        "WWW.XN--ZALGO003446-SJGB60AIGHL2I8JC3B0A2A97FTBLL0CZA.COM",
+        "WWW.XN--ZALGO012841-SJGB60AIGHL2I8JC3B0A2A97FTBLL0CZA.COM",
+        "WWW.XN--ZALGO029243-SJGB60AIGHL2I8JC3B0A2A97FTBLL0CZA.COM",
+        "CLIENTALALAXP.MN",
+        "CLIENTALNOTHING.ME",
+        "USERALCLICLIENT.ME",
+        "AGENTCLIENTCLIENT.ME",
+        "JSCJSCAXPCLIALLOW.ME",
+        "JSCCLIENTAGENTDISA.ME",
+        "DISAALALLOWDISALLOW.ME",
+        "QUJFVNN.TO",
+        "CRWKBMX.TW",
+        "OLKQXMAEUIWYX.XXX",
+        "BPWENCSDVRJXJI.PRO",
+        "pop.imvhhht.ru",
+        "pop.hrfomio.ru",
+        "pop.jkkjymtb.com",
+        "etotheipiplusone.net"]
+
+case = "DGA"
+
+
+def main(case, data):
+    """Formats the data, appending RAG and the prompt, then calls the AI API
+
+    Args:
+        case(str) -- The appreviation for the use case (e.g. 'DGA')
+        case["str...] -- The list of strings that represent each event's information
+
+    Returns:
+        None at this point
+    """
     with open('prompts.json', 'r') as file:
         prompts = json.load(file)
     
-    with open(prompts[type]['dir'] + prompts[type]['rag_bad'], newline='') as file:
+    with open(prompts[case]['dir'] + prompts[case]['rag_bad'], newline='') as file:
         rag_bad = list(csv.reader(file))
 
-    print(rag_bad[1:])
+    with open(prompts[case]['dir'] + prompts[case]['rag_ok'], newline='') as file:
+        rag_ok = list(csv.reader(file))
+
+    api_string = prompts[case]["prompt"]+"\n"+"\n".join(data)
+
+    response = together_call(api_string)
+    print(response)
 
 
-def test_data():
-    with open('test_data.json', 'r') as file:
-        test_data = json.load(file)
-    
-    return(test_data)
+def openai_call(prompt):
+    """Calls OpenAI using the specified model and primpt, returns the response
 
-def open_ai_call(prompt):
+    Args:
+        prompt(str) the prompt string that is sent to the AI
+
+    Returns:
+        message_content(str) the response from the AI model
+    """
     try:
-        response = openai.ChatCompletion.create(model=ai_model, messages=[{"role": "user", "content": prompt}])
+        response = client.chat.completions.create(
+             model=openai_model,
+             messages=[{"role": "user", "content": prompt}
+            ]
+        )
+
+        message_content = response.choices[0].message.content
+
+    except Exception as e:
+        print(f"An error occured: {e}")
     
-    except:
-        response = f"Error: {str(e)}"
+    return(message_content)
 
-    return(response)
+def together_call(prompt):
+    """Calls TogetherAI using the specified model and primpt, returns the response
 
-main(test_data())
+    Args:
+        prompt(str) the prompt string that is sent to the AI
 
+    Returns:
+        message_content(str) the response from the AI model
+    """
+    try:
+        response = client2.chat.completions.create(
+            model=togetherai_model,
+            messages=[{"role": "user", "content": prompt}],
+        )
+
+        message_content = response.choices[0].message.content
+
+    except Exception as e:
+        print(f"An error occured: {e}")
+    
+    return(message_content)
+
+main(case, test_data)
