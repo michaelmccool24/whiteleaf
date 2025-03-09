@@ -16,7 +16,7 @@ client2 = Together(api_key=togetherai_key)
 
 
 
-openai_model = "gpt-4o-mini"
+openai_model = "gpt-4o"
 togetherai_model = "deepseek-ai/DeepSeek-V3"
 
 test_data = ["WWW.XN--ZALGO075952-SJGB60AIGHL2I8JC3B0A2A97FTBLL0CZA.COM",
@@ -36,7 +36,7 @@ test_data = ["WWW.XN--ZALGO075952-SJGB60AIGHL2I8JC3B0A2A97FTBLL0CZA.COM",
         "BPWENCSDVRJXJI.PRO",
         "pop.imvhhht.ru",
         "pop.hrfomio.ru",
-        "pop.jkkjymtb.com,"
+        "pop.jkkjymtb.com",
         "etotheipiplusone.net"]
 
 case = "DGA"
@@ -63,7 +63,7 @@ def main(case, data):
 
     api_string = prompts[case]["prompt"]+"\n"+"\n".join(data)
 
-    response = openai_call(api_string)
+    response = together_call(api_string)
     print(response)
 
 
@@ -103,11 +103,6 @@ def together_call(prompt):
         response = client2.chat.completions.create(
             model=togetherai_model,
             messages=[{"role": "user", "content": prompt}],
-            max_tokens=None,
-            temperature=0.7,
-            top_p=0.7,
-            top_k=50,
-            repitition_penalty=1,
         )
 
         message_content = response.choices[0].message.content
