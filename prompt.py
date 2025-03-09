@@ -8,7 +8,7 @@ from together import Together
 with open("openai_apikey", "r") as file:
         openai_key = file.read()
 
-with open("togethai_apikey", "r") as file:
+with open("togetherai_apikey", "r") as file:
         togetherai_key = file.read()
 
 client = OpenAI(api_key=openai_key)
@@ -16,8 +16,8 @@ client2 = Together(api_key=togetherai_key)
 
 
 
-openai_model = "gpt-3.5-turbo"
-togetherai_model = "deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free"
+openai_model = "gpt-4o-mini"
+togetherai_model = "deepseek-ai/DeepSeek-V3"
 
 test_data = ["WWW.XN--ZALGO075952-SJGB60AIGHL2I8JC3B0A2A97FTBLL0CZA.COM",
         "WWW.XN--ZALGO003446-SJGB60AIGHL2I8JC3B0A2A97FTBLL0CZA.COM",
@@ -63,11 +63,11 @@ def main(case, data):
 
     api_string = prompts[case]["prompt"]+"\n"+"\n".join(data)
 
-    response = together_call(api_string)
+    response = openai_call(api_string)
     print(response)
 
 
-def open_ai_call(prompt):
+def openai_call(prompt):
     """Calls OpenAI using the specified model and primpt, returns the response
 
     Args:
@@ -108,13 +108,9 @@ def together_call(prompt):
             top_p=0.7,
             top_k=50,
             repitition_penalty=1,
-            stop=["< | end_of_sentence | >"],
-            stream=True
         )
 
-        for token in response:
-            if hasattr(token, 'choices'):
-                message_content = token.choices[0].delta.content
+        message_content = response.choices[0].message.content
 
     except Exception as e:
         print(f"An error occured: {e}")
