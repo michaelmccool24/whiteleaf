@@ -5,14 +5,25 @@
         "rag_ok": "real_domains.csv",
         "rag_bad": "generated_domains.csv",
         "cache": "cached_domains.csv",
-        "request_size": 30
+        "request_size": 30,
+        "title": "DGA Domains"
     },
-    "2nd one": {
+    "WLUC6": {
+       "prompt": "Please determine on a scale from 1-100 the confidence that each of the following URLs are illegitimate web requests and are actually cases of SQL injection. Return the results as a newline seperated list with no other characters or stylistic elements.",
+        "dir": "./RAG/URL/",
+        "rag_ok": "real_url.csv",
+        "rag_bad": "bad_url.csv",
+        "cache": "cached_url_wluc6.csv" ,
+        "request_size": 30,
+        "title": "Mass Mailer Traffic Profile"
+    },
+    "WLUC2": {
        "prompt": "Chat GPT please do stuff.",
         "dir": "./RAG/2nd one/",
         "rag_ok": "good stuff.csv",
         "rag_bad": "bad stuff.csv",
         "cache": "cached stuff.csv" ,
-        "request_size": 30
+        "request_size": 30,
+        "title": "Fill"
     }
 }
