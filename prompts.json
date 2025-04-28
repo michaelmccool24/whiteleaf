@@ -124,5 +124,14 @@
         "cache": "cached_pst_exports_wluc20.csv",
         "request_size": 30,
         "title": "O365 PST Exports"
+    },
+    "WLUC21": {
+       "prompt": "Please determine on a scale from 1-100 the confidence that the following Windows WMI processes contain suspicious commands that may be executing malicious code on local or remote hosts. Return the results as a newline seperated list with no other characters or stylistic elements.",
+        "dir": "./RAG/WMI/",
+        "rag_ok": "real_wmi_wluc21.csv",
+        "rag_bad": "bad_wmi_wluc21.csv",
+        "cache": "cached_wmi_wluc21.csv",
+        "request_size": 30,
+        "title": "Windows WMI Suspicious Execution"
     }
 }
