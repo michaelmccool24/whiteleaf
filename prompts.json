@@ -142,5 +142,14 @@
         "cache": "cached_certutil_wluc22.csv",
         "request_size": 30,
         "title": "Windows Suspicious CertUtil Activity"
+    },
+    "WLUC28": {
+       "prompt": "Please determine on a scale from 1-100 the confidence that the following filenames with their file extensions are related to ransomware behavior. Return the results as a newline seperated list with no other characters or stylistic elements.",
+        "dir": "./RAG/ransomware/",
+        "rag_ok": "real_ransomware_wluc28.csv",
+        "rag_bad": "bad_ransomware_wluc28.csv",
+        "cache": "cached_ransomware_wluc28.csv",
+        "request_size": 30,
+        "title": "Suspicious Ransomware Extension"
     }
 }
