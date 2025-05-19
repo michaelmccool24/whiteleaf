@@ -1,6 +1,6 @@
 {
     "WLUC1": {
-        "prompt": "Please determine on a scale from 1-100 the confidence that each of the following domains is DGA generated. Return the results as a newline seperated list with no other characters or stylistic elements.",
+        "prompt": "Please determine on a scale from 1-100 the confidence that each of the following domains is DGA generated. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/DGA_domains/",
         "rag_ok": "real_domains.csv",
         "rag_bad": "generated_domains.csv",
@@ -9,7 +9,7 @@
         "title": "DGA Domains"
     },
     "WLUC6": {
-       "prompt": "Please determine on a scale from 1-100 the confidence that each of the following URLs are illegitimate web requests and are actually cases of SQL injection. Return the results as a newline seperated list with no other characters or stylistic elements.",
+       "prompt": "Please determine on a scale from 1-100 the confidence that each of the following URLs are illegitimate web requests and are actually cases of SQL injection. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/URL/",
         "rag_ok": "real_url_wluc6.csv",
         "rag_bad": "bad_url_wluc6.csv",
@@ -18,7 +18,7 @@
         "title": "Mass Mailer Traffic Profile"
     },
     "WLUC7": {
-       "prompt": "Please determine on a scale from 1-100 the confidence that each of the following processes are being executed from unusual and/or suspicious file paths. Return the results as a newline seperated list with no other characters or stylistic elements.",
+       "prompt": "Please determine on a scale from 1-100 the confidence that each of the following processes are being executed from unusual and/or suspicious file paths. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/Processes/",
         "rag_ok": "real_processes_wluc7.csv",
         "rag_bad": "bad_processes_wluc7.csv",
@@ -27,7 +27,7 @@
         "title": "Process Executed from Suspicious File Path"
     },
     "WLUC8": {
-       "prompt": "Please determine on a scale from 1-100 the confidence that each of the following URLs are illegitimate lookalike email domains. Return the results as a newline seperated list with no other characters or stylistic elements.",
+       "prompt": "Please determine on a scale from 1-100 the confidence that each of the following URLs are illegitimate lookalike email domains. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/Lookalike_domains/",
         "rag_ok": "real_domains_wluc8.csv",
         "rag_bad": "lookalike_domains_wluc8.csv",
@@ -36,7 +36,7 @@
         "title": "Lookalike Domains in Email"
     },
     "WLUC9": {
-       "prompt": "Please determine on a scale from 1-100 the confidence that each of the following URLs are illegitimate lookalike web domains. Return the results as a newline seperated list with no other characters or stylistic elements.",
+       "prompt": "Please determine on a scale from 1-100 the confidence that each of the following URLs are illegitimate lookalike web domains. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/Lookalike_domains/",
         "rag_ok": "real_domains_wluc9.csv",
         "rag_bad": "lookalike_domains_wluc9.csv",
@@ -45,7 +45,7 @@
         "title": "Lookalike Domains in Web"
     },
     "WLUC10": {
-       "prompt": "Please determine on a scale from 1-100 the confidence that each of the following Powershell processes are suspicious and potentially malicious. Return the results as a newline seperated list with no other characters or stylistic elements.",
+       "prompt": "Please determine on a scale from 1-100 the confidence that each of the following Powershell processes are suspicious and potentially malicious. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/Powershell/",
         "rag_ok": "real_processes_wluc10.csv",
         "rag_bad": "bad_processes_wluc10.csv",
@@ -54,7 +54,7 @@
         "title": "Suspicious Powershell Commands"
     },
     "WLUC11": {
-       "prompt": "Please determine on a scale from 1-100 the confidence that each of the following Linux processes are suspicious and potentially malicious. Return the results as a newline seperated list with no other characters or stylistic elements.",
+       "prompt": "Please determine on a scale from 1-100 the confidence that each of the following Linux processes are suspicious and potentially malicious. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/Linux/",
         "rag_ok": "real_processes_wluc11.csv",
         "rag_bad": "bad_processes_wluc11.csv",
@@ -63,7 +63,7 @@
         "title": "Suspicious Linux Commands"
     },
     "WLUC12": {
-       "prompt": "Please determine on a scale from 1-100 the confidence that each of the following processes and hashes are part of a malicious Monti Chrome ransomware attack. Return the results as a newline seperated list with no other characters or stylistic elements.",
+       "prompt": "Please determine on a scale from 1-100 the confidence that each of the following processes and hashes are part of a malicious Monti Chrome ransomware attack. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/Monti/",
         "rag_ok": "real_processes_wluc12.csv",
         "rag_bad": "bad_processes_wluc12.csv",
@@ -72,7 +72,7 @@
         "title": "Monti Chrome Ransomware Attack"
     },
     "WLUC13": {
-       "prompt": "Please determine on a scale from 1-100 the confidence that each of the following network applications are part of a malicious LOLBAS network traffic attack. Return the results as a newline seperated list with no other characters or stylistic elements.",
+       "prompt": "Please determine on a scale from 1-100 the confidence that each of the following network applications are part of a malicious LOLBAS network traffic attack. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/Powershell/",
         "rag_ok": "real_apps_wluc13.csv",
         "rag_bad": "bad_apps_wluc13.csv",
@@ -81,7 +81,7 @@
         "title": "LOLBAS Network Traffic"
     },
     "WLUC15": {
-       "prompt": "Please determine on a scale from 1-100 the confidence that each of the following Windows CallTrace DLLs, GrantedAccess rights, and target images are part of a credential dumping attack. Return the results as a newline seperated list with no other characters or stylistic elements.",
+       "prompt": "Please determine on a scale from 1-100 the confidence that each of the following Windows CallTrace DLLs, GrantedAccess rights, and target images are part of a credential dumping attack. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/Credential_dumping/",
         "rag_ok": "real_dumping_wluc15.csv",
         "rag_bad": "bad_dumping_wluc15.csv",
@@ -90,7 +90,7 @@
         "title": "Windows Credential Dumping"
     },
     "WLUC16": {
-       "prompt": "Please determine on a scale from 1-100 the confidence that it is malicious or suspicious to delete each of the following Linux services and jobs. Return the results as a newline seperated list with no other characters or stylistic elements.",
+       "prompt": "Please determine on a scale from 1-100 the confidence that it is malicious or suspicious to delete each of the following Linux services and jobs. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/Linux/",
         "rag_ok": "real_services_jobs_wluc16.csv",
         "rag_bad": "bad_services_jobs_wluc16.csv",
@@ -99,7 +99,7 @@
         "title": "Linux Deletion of Services or Jobs"
     },
     "WLUC17": {
-       "prompt": "Please determine on a scale from 1-100 the confidence that the following Linux delete commands are malicious or suspicious. Return the results as a newline seperated list with no other characters or stylistic elements.",
+       "prompt": "Please determine on a scale from 1-100 the confidence that the following Linux delete commands are malicious or suspicious. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/Linux/",
         "rag_ok": "real_files_wluc17.csv",
         "rag_bad": "bad_files_wluc17.csv",
@@ -108,7 +108,7 @@
         "title": "Linux Deletion of Critical Files"
     },
     "WLUC18": {
-       "prompt": "Please determine on a scale from 1-100 the confidence that it is malicious or suspicious to detele each of the following Linux files, certificates, or boot scripts. Return the results as a newline seperated list with no other characters or stylistic elements.",
+       "prompt": "Please determine on a scale from 1-100 the confidence that it is malicious or suspicious to detele each of the following Linux files, certificates, or boot scripts. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/Linux/",
         "rag_ok": "real_files_wluc18.csv",
         "rag_bad": "bad_files_wluc18.csv",
@@ -117,7 +117,7 @@
         "title": "Linux Deletion of Infra Support"
     },
     "WLUC20": {
-       "prompt": "Please determine on a scale from 1-100 the confidence that the following counts of Microsoft office365 'eDiscovery search started or exported' actions by a single user is malicious or suspicious. Return the results as a newline seperated list with no other characters or stylistic elements.",
+       "prompt": "Please determine on a scale from 1-100 the confidence that the following counts of Microsoft office365 'eDiscovery search started or exported' actions by a single user is malicious or suspicious. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/O365/",
         "rag_ok": "real_pst_exports_wluc20.csv",
         "rag_bad": "bad_pst_exports_wluc20.csv",
@@ -126,7 +126,7 @@
         "title": "O365 PST Exports"
     },
     "WLUC21": {
-       "prompt": "Please determine on a scale from 1-100 the confidence that the following Windows WMI processes contain suspicious commands that may be executing malicious code on local or remote hosts. Return the results as a newline seperated list with no other characters or stylistic elements.",
+       "prompt": "Please determine on a scale from 1-100 the confidence that the following Windows WMI processes contain suspicious commands that may be executing malicious code on local or remote hosts. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/WMI/",
         "rag_ok": "real_wmi_wluc21.csv",
         "rag_bad": "bad_wmi_wluc21.csv",
@@ -135,7 +135,7 @@
         "title": "Windows WMI Suspicious Execution"
     },
     "WLUC22": {
-       "prompt": "Please determine on a scale from 1-100 the confidence that the following Windows processes contain suspicious commands related to malicious CertUtil downloading, extraction, or decoding. Return the results as a newline seperated list with no other characters or stylistic elements.",
+       "prompt": "Please determine on a scale from 1-100 the confidence that the following Windows processes contain suspicious commands related to malicious CertUtil downloading, extraction, or decoding. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/CertUtil/",
         "rag_ok": "real_certutil_wluc22.csv",
         "rag_bad": "bad_certutil_wluc22.csv",
@@ -144,7 +144,7 @@
         "title": "Windows Suspicious CertUtil Activity"
     },
     "WLUC28": {
-       "prompt": "Please determine on a scale from 1-100 the confidence that the following filenames with their file extensions are related to ransomware behavior. Return the results as a newline seperated list with no other characters or stylistic elements.",
+       "prompt": "Please determine on a scale from 1-100 the confidence that the following filenames with their file extensions are related to ransomware behavior. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/ransomware/",
         "rag_ok": "real_ransomware_wluc28.csv",
         "rag_bad": "bad_ransomware_wluc28.csv",
