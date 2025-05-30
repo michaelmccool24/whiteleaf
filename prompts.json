@@ -196,5 +196,15 @@
         "cache": "cached_CredentialDumping_wluc34.csv",
         "request_size": 30,
         "title": "Credential Dumping via Copy Command from Shadow Copy/Credential Dumping via Symlink to Shadow Copy"
+    
+    },
+    "WLUC35": {
+       "prompt": "Please determine on a scale from 1-100 the confidence that the following processes are the abuse of IAM controls for persistence, privilege escalation, or credential misuse. Return the results as a newline seperated list with no other characters or stylistic elements.",
+        "dir": "./RAG/LoginElementsCreation/",
+        "rag_ok": "real_LoginElementsCreation_wluc35.csv",
+        "rag_bad": "bad_LoginElementsCreation_wluc35.csv",
+        "cache": "cached_LoginElementsCreation_wluc35.csv",
+        "request_size": 30,
+        "title": "AWS Login Elements Creation"
     }
 }
