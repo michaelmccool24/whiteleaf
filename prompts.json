@@ -152,6 +152,15 @@
         "request_size": 30,
         "title": "Suspicious Ransomware Extension"
     },
+    "WLUC29": {
+       "prompt": "Please determine on a scale from 1-100 the confidence that the following are cases off password spraying from a single source, where the first integer is the distinct number of usernames used in authentication attempts and the second integer is the ratio of succesful authentications divided by failed authentications, seperated by a single '>' character. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
+        "dir": "./RAG/passwordspray/",
+        "rag_ok": "real_passwordspray_wluc29.csv",
+        "rag_bad": "bad_passwordspray_wluc29.csv",
+        "cache": "cached_passwordspray_wluc29.csv",
+        "request_size": 30,
+        "title": "Password Spray (Many to One)"
+    },
     "WLUC30": {
        "prompt": "Please determine on a scale from 1-100 the confidence that the following processes are malicious based off their rarity of execution. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/rareexecutable/",
@@ -196,7 +205,6 @@
         "cache": "cached_CredentialDumping_wluc34.csv",
         "request_size": 30,
         "title": "Credential Dumping via Copy Command from Shadow Copy/Credential Dumping via Symlink to Shadow Copy"
-    
     },
     "WLUC35": {
        "prompt": "Please determine on a scale from 1-100 the confidence that the following processes are the abuse of IAM controls for persistence, privilege escalation, or credential misuse. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
@@ -224,5 +232,14 @@
         "cache": "cached_LogDeletion_wluc37.csv",
         "request_size": 30,
         "title": "AWS ASL Log Deletion"
+    },
+    "WLUC38": {
+       "prompt": "Please determine on a scale from 1-100 the confidence that the following are cases off password spraying from a single username, where the first integer is the distinct number of sources from which the authentication attempts originate and the second integer is the ratio of succesful authentications divided by failed authentications, seperated by a single '>' character. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
+        "dir": "./RAG/passwordspray/",
+        "rag_ok": "real_passwordspray_wluc38.csv",
+        "rag_bad": "bad_passwordspray_wluc38.csv",
+        "cache": "cached_passwordspray_wluc38.csv",
+        "request_size": 30,
+        "title": "Password Spray (One to Many)"
     }
 }
