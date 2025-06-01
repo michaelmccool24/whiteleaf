@@ -206,7 +206,7 @@
         "cache": "cached_LoginElementsCreation_wluc35.csv",
         "request_size": 30,
         "title": "AWS Login Elements Creation"
-    }
+    },
     "WLUC36": {
        "prompt": "Please determine on a scale from 1-100 the confidence that the following processes are malicious attempts to modify or access credentials for AWS EC2 instances. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/CredentialManipulation/",
@@ -215,7 +215,7 @@
         "cache": "cached_CredentialManipulation_wluc36.csv",
         "request_size": 30,
         "title": "AWS ASL Credential Manipulation"
-    }
+    },
     "WLUC37": {
        "prompt": "Please determine on a scale from 1-100 the confidence that the following processes are potential attempts to disable or evade AWS monitoring, auditing, or detection systems by deleting log or security resources. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/LogDeletion/",
