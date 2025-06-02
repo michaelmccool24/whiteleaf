@@ -242,4 +242,13 @@
         "request_size": 30,
         "title": "Password Spray (One to Many)"
     }
+     "WLUC39": {
+       "prompt": "Please determine on a scale from 1-100 the confidence that the following are attempts to modify or disable audit logging. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
+        "dir": "./RAG/CloudtrailManipulation/",
+        "rag_ok": "real_CloudtrailManipulation_wluc39.csv",
+        "rag_bad": "bad_CloudtrailManipulation_wluc39.csv",
+        "cache": "cached_CloudtrailManipulation_wluc39.csv",
+        "request_size": 30,
+        "title": "AWS Cloudtrail Manipulation"
+    }
 }
