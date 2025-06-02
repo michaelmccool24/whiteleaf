@@ -1,4 +1,13 @@
 {
+    "WLUC0": {
+        "prompt": "Please determine if the following behaviors acting on a single user/system indicate a potential cybersecurity threat deserving human investigation. Return only "yes" or "no", nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
+        "dir": "./RAG/DGA_domains/",
+        "rag_ok": "real_domains.csv",
+        "rag_bad": "generated_domains.csv",
+        "cache": "cached_domains.csv",
+        "request_size": 30,
+        "title": "Whiteleaf Notable Generator"
+    },
     "WLUC1": {
         "prompt": "Please determine on a scale from 1-100 the confidence that each of the following domains is DGA generated. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/DGA_domains/",
