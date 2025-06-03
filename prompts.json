@@ -251,4 +251,13 @@
         "request_size": 30,
         "title": "Password Spray (One to Many)"
     }
+    "WLUC42": {
+       "prompt": "Please determine on a scale from 1-100 the confidence that the following are malicious group or policy deletions including suspicious failed attempts from non-AWS user agents. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
+        "dir": "./RAG/LogDeletion/",
+        "rag_ok": "real_LogDeletion_wluc42.csv",
+        "rag_bad": "bad_LogDeletion_wluc42.csv",
+        "cache": "cached_LogDeletion_wluc42.csv",
+        "request_size": 30,
+        "title": "AWS IAM Log Deletion"
+    }
 }
