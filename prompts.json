@@ -251,4 +251,13 @@
         "request_size": 30,
         "title": "Password Spray (One to Many)"
     }
+    "WLUC41": {
+       "prompt": "Please determine on a scale from 1-100 the confidence that the following are an abnormal amount of failed or unathorized AWS API calls. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
+        "dir": "./RAG/PrivilegeEscalation/",
+        "rag_ok": "real_PrivilegeEscalation_wluc41.csv",
+        "rag_bad": "bad_PrivilegeEscalation_wluc41.csv",
+        "cache": "cached_PrivilegeEscalation_wluc41.csv",
+        "request_size": 30,
+        "title": "AWS Privilege Escalation"
+    }
 }
