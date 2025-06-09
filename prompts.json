@@ -260,4 +260,13 @@
         "request_size": 30,
         "title": "AWS Cloudtrail Manipulation"
     }
+     "WLUC50": {
+       "prompt": "Please determine on a scale from 1-100 the confidence that the following are indicative of a malicious attack. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
+        "dir": "./RAG/AuthOneIPMultiUser/",
+        "rag_ok": "real_AuthOneIPMultiUser_wluc50.csv",
+        "rag_bad": "bad_AuthOneIPMultiUser_wluc50.csv",
+        "cache": "cached_AuthOneIPMultiUser_wluc50.csv",
+        "request_size": 30,
+        "title": "AWS Authentication from One IP to Multiple Users"
+    }
 }
