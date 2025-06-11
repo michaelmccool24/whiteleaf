@@ -260,4 +260,13 @@
         "request_size": 30,
         "title": "AWS Cloudtrail Manipulation"
     }
+    "WLUC54": {
+       "prompt": "Please determine on a scale from 1-100 the confidence that the following activity indicates a potential attack or unauthorized access to Amazon S3 resources. Evaluate based on the raw data provided, including IP address, user identity, permissions granted, geographic origin, and request method. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
+        "dir": "./RAG/S3AccessDetection/",
+        "rag_ok": "real_S3AccessDetection_wluc54.csv",
+        "rag_bad": "bad_S3AccessDetection_wluc54.csv",
+        "cache": "cached_S3AccessDetection_wluc54.csv",
+        "request_size": 30,
+        "title": "AWS S3 Access Detection"
+    }
 }
