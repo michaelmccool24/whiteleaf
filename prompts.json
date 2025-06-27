@@ -251,7 +251,7 @@
         "request_size": 30,
         "title": "Password Spray (One to Many)"
     }
-    "WLUC340": {
+    "WLUC40": {
        "prompt": "Please determine on a scale from 1-100 the confidence that the following activity are malicious attempts to upload an ECR image. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/AbnormalECRUpload/",
         "rag_ok": "real_AbnormalECRUpload_wluc40.csv",
