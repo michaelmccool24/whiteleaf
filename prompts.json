@@ -261,7 +261,7 @@
         "title": "AWS Cloudtrail Manipulation"
     }
     "WLUC48": {
-       "prompt": "Please determine on a scale from 1-100 the confidence that the following IAM API access denials or failed console logins are malicious. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
+       "prompt": "Please determine on a scale from 1-100 the confidence that the following count of login failures from a sinlge user within an hour long period is indicative of malicious behavior. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/FailedAuth/",
         "rag_ok": "real_FailedAuth_wluc48.csv",
         "rag_bad": "bad_FailedAuth_wluc48.csv",
