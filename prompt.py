@@ -3,6 +3,7 @@ import csv
 import os
 import time
 import logging
+import math
 from typing import List, Dict, Any, Optional
 from functools import lru_cache
 from pymongo import MongoClient
@@ -401,17 +402,23 @@ def main(case: str, data: List[str], request_id: int) -> str:
         rag_bad, rag_ok = load_rag_data(config, request_id)
 
         response_data = []
-        if len(uncached_data) > 0:
+        request_size = config['request_size']
+        num_requests = math.ceil(len(uncached_data)/request_size)
+
+        logger.info(f"Request {request_id}: Calling AI service {num_requests} times for {len(uncached_data)} total data items")
+        for i in range(num_requests):
+            request_data = uncached_data[i*request_size:min((i+1)*request_size, len(uncached_data))]
             # Generate API prompt
-            api_string = f"{config['prompt']}\n" + "\n".join(uncached_data)
+            api_string = f"{config['prompt']}\n" + "\n".join(request_data)
         
             # Get AI response
-            logger.info(f"Request {request_id}: Calling AI service with {len(uncached_data)} data items")
+            # logger.info(f"Request {request_id}: Calling AI service with {len(request_data)} data items")
             response = ai_service_call(api_string, request_id)
         
             # convert to list
-            response_data = response.splitlines()
-
+            response_data.append(response.splitlines())
+        
+        if len(response_data) > 0:
             # cache responses
             update_cache(case, uncached_data, response_data, request_id)
 
