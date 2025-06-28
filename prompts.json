@@ -317,4 +317,13 @@
         "request_size": 30,
         "title": "AWS ECR Container Scanning"
     }
+     "WLUC46": {
+       "prompt": "Please determine on a scale from 1-100 the confidence that the following upload is being done by an unauthorized user or at an abnormal time. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
+        "dir": "./RAG/ECRAbnormalUpload/",
+        "rag_ok": "real_ECRAbnormalUpload_wluc46.csv",
+        "rag_bad": "bad_ECRAbnormalUpload_wluc46.csv",
+        "cache": "cached_ECRAbnormalUpload_wluc46.csv",
+        "request_size": 30,
+        "title": "AWS ECR Abnormal Upload"
+    }
 }
