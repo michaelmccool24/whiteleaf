@@ -366,7 +366,7 @@ def combine_data(cache_hit_vals: List[str], response_data: List[str], cache_hit_
 
     return output_data
 
-def main(case: str, data: List[str]) -> str:
+def main(case: str, data: List[str], request_id: int) -> str:
     """
     Process plaintext data through AI service
     
@@ -382,7 +382,6 @@ def main(case: str, data: List[str]) -> str:
         RuntimeError: For processing errors
     """
     start_time = time.time()
-    request_id = int(time.time() * 1000)
     logger.info(f"Request {request_id}: Processing request for case '{case}' with {len(data)} data items")
     
     try:
