@@ -75,12 +75,15 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
     def setup(self):
         """Setup handler with timeout"""
         try:
-            # Set socket timeout for the request
-            self.connection.settimeout(REQUEST_TIMEOUT)
+            # Call parent setup first to initialize connection
             http.server.SimpleHTTPRequestHandler.setup(self)
+            # Then set socket timeout for the request
+            if hasattr(self, 'connection') and self.connection:
+                self.connection.settimeout(REQUEST_TIMEOUT)
         except Exception as e:
             logger.error(f"Error setting up request handler: {e}")
-            raise
+            # Don't raise here, let the request continue
+            pass
     
     def do_GET(self):
         """Handle GET requests with encrypted parameters"""
@@ -167,21 +170,21 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
                 
             # Call prompt.py with plaintext data
             try:
-                logger.info(f"Request {request_id}: Calling data processor with {len(prompts)} data items")
+                logger.info(f"Request {request_id}: Calling AI service with {len(prompts)} data items")
                 ai_response = prompt_main(case, prompts)
             except Exception as e:
-                logger.error(f"Request {request_id}: Data processor error: {str(e)}")
+                logger.error(f"Request {request_id}: AI service error: {str(e)}")
                 self.send_error_response(500, {"status": "error", "message": "AI processing error"})
                 return
             
             # Encrypt sensitive response if needed
-            #if should_encrypt_response(ai_response):
-             #   logger.info(f"Request {request_id}: Encrypting sensitive response")
-              #  encrypted_response = cipher_suite.encrypt(ai_response.encode())
+            if should_encrypt_response(ai_response):
+                logger.info(f"Request {request_id}: Encrypting sensitive response")
+                encrypted_response = cipher_suite.encrypt(ai_response.encode())
                 # For this implementation, we're decrypting before sending to demonstrate the flow
                 # In a real production system, you might send the encrypted response to clients
                 # who have the decryption key
-               # ai_response = cipher_suite.decrypt(encrypted_response).decode()
+                ai_response = cipher_suite.decrypt(encrypted_response).decode()
             
             logger.info(f"Request {request_id}: Sending successful response")
             self.send_secure_response(200, {"status": "success", "data": ai_response})
