@@ -407,7 +407,7 @@ def main(case: str, data: List[str]) -> str:
             api_string = f"{config['prompt']}\n" + "\n".join(uncached_data)
         
             # Get AI response
-            logger.info(f"Request {request_id}: Calling AI service")
+            logger.info(f"Request {request_id}: Calling AI service with {len(uncached_data)} data items")
             response = ai_service_call(api_string, request_id)
         
             # convert to list
