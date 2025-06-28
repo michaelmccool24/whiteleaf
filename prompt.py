@@ -410,7 +410,7 @@ def main(case: str, data: List[str]) -> str:
         response = ai_service_call(api_string, request_id)
         
         # convert to list
-        response_data = response.splitline()
+        response_data = response.splitlines()
 
         # cache responses
         update_cache(case, uncached_data, response_data, request_id)
