@@ -114,9 +114,9 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
                 return
             
             # Encrypt sensitive response if needed
-            if should_encrypt_response(ai_response):
-                logger.info(f"Request {request_id}: Encrypting sensitive response")
-                encrypted_response = cipher_suite.encrypt(ai_response.encode())
+            #if should_encrypt_response(ai_response):
+             #   logger.info(f"Request {request_id}: Encrypting sensitive response")
+              #  encrypted_response = cipher_suite.encrypt(ai_response.encode())
                 # For this implementation, we're decrypting before sending to demonstrate the flow
                 # In a real production system, you might send the encrypted response to clients
                 # who have the decryption key
