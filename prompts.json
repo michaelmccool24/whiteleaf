@@ -261,7 +261,7 @@
         "title": "AWS Cloudtrail Manipulation"
     }
      "WLUC47": {
-       "prompt": "Please determine on a scale from 1-100 the confidence that the snapshot activity, DataSync Task creation, S3 Bucket replication, job creation, or S3 object access is malicious. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
+       "prompt": "Please determine on a scale from 1-100 the confidence that the snapshot activity, DataSync Task creation, S3 Bucket replication, job creation, or S3 object access for a single user is malicious. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/Exfiltration/",
         "rag_ok": "real_Exfiltration_wluc47.csv",
         "rag_bad": "bad_Exfiltration_wluc47.csv",
