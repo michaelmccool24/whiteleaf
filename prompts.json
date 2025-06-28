@@ -270,7 +270,7 @@
         "title": "AWS Abnormal ECR Container Upload",
         "cache_time": 43800
     }
- "WLUC41": {
+     "WLUC41": {
        "prompt": "Please determine on a scale from 1-100 the confidence that the following are an abnormal amount of failed AWS IAM role assumptions, indicating that someone may be guessing IAM role names. Return only integers, nothing else. Return the results as a newline separated list with no other characters or stylistic elements.",
         "dir": "./RAG/PrivilegeEscalation/",
         "rag_ok": "real_PrivilegeEscalation_wluc41.csv",
