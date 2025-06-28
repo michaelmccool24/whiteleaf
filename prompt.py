@@ -412,11 +412,15 @@ def main(case: str, data: List[str]) -> str:
         # convert to list
         response_data = response.splitlines()
 
+        logger.info(f"Request {request_id}: response_data = {response_data}")
+
         # cache responses
         update_cache(case, uncached_data, response_data, request_id)
 
         # recombined cached and uncached results
         output = combine_data(cache_hit_vals, response_data, cache_hit_success)
+        
+        logger.info(f"Request {request_id}: output = {output}")
 
         elapsed_time = time.time() - start_time
         logger.info(f"Request {request_id}: Completed in {elapsed_time:.2f}s")
