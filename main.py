@@ -124,11 +124,11 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
 
                 #sending back to client encrypted response
 
-                
+
                 #ai_response = encrypted_response
             
             logger.info(f"Request {request_id}: Sending successful response")
-            self.send_secure_response(200, {"status": "success", "data": ai_response})
+            self.send_basic_response(200, {"status": "success", "data": ai_response})
 
         except Exception as e:
             logger.error(f"Request {request_id}: Unhandled exception: {str(e)}", exc_info=True)
@@ -226,6 +226,13 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
         self.send_header("X-Frame-Options", "DENY")
         self.send_header("X-XSS-Protection", "1; mode=block")
         self.send_header("Content-Security-Policy", "default-src 'none'")
+        self.end_headers()
+        self.wfile.write(json.dumps(content).encode())
+
+    def send_basic_response(self, code, content):
+        """Send basic response without security headers"""
+        self.send_response(code)
+        self.send_header("Content-type", "application/json")
         self.end_headers()
         self.wfile.write(json.dumps(content).encode())
     
