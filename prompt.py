@@ -61,7 +61,7 @@ def get_together_client():
     return _together_client
 
 @lru_cache(maxsize=32)
-def load_prompt_config(case: str) -> Dict[str, Any]:
+def load_prompt_config(case: str, request_id: int) -> Dict[str, Any]:
     """
     Load prompt configuration with caching
     
@@ -83,13 +83,13 @@ def load_prompt_config(case: str) -> Dict[str, Any]:
             
         return prompts[case]
     except json.JSONDecodeError:
-        logger.error("Failed to parse prompts.json")
+        logger.error(f"Request {request_id}: Failed to parse prompts.json")
         raise ValueError("Invalid prompt configuration format")
     except FileNotFoundError:
-        logger.error("prompts.json file not found")
+        logger.error(f"Request {request_id}: prompts.json file not found")
         raise ValueError("Prompt configuration file not found")
 
-def load_rag_data(config: Dict[str, Any]) -> tuple:
+def load_rag_data(config: Dict[str, Any], request_id: int) -> tuple:
     """
     Load RAG data based on configuration
     
@@ -108,9 +108,9 @@ def load_rag_data(config: Dict[str, Any]) -> tuple:
             if os.path.exists(file_path):
                 with open(file_path, newline='') as file:
                     rag_bad = list(csv.reader(file))
-                    logger.info(f"Loaded {len(rag_bad)} bad RAG examples")
+                    logger.info(f"Request {request_id}: Loaded {len(rag_bad)} bad RAG examples")
     except Exception as e:
-        logger.warning(f"Failed to load bad RAG data: {str(e)}")
+        logger.warning(f"Request {request_id}: Failed to load bad RAG data: {str(e)}")
     
     try:
         if 'dir' in config and 'rag_ok' in config:
@@ -118,13 +118,13 @@ def load_rag_data(config: Dict[str, Any]) -> tuple:
             if os.path.exists(file_path):
                 with open(file_path, newline='') as file:
                     rag_ok = list(csv.reader(file))
-                    logger.info(f"Loaded {len(rag_ok)} good RAG examples")
+                    logger.info(f"Request {request_id}: Loaded {len(rag_ok)} good RAG examples")
     except Exception as e:
-        logger.warning(f"Failed to load good RAG data: {str(e)}")
+        logger.warning(f"Request {request_id}: Failed to load good RAG data: {str(e)}")
     
     return rag_bad, rag_ok
 
-def retry_with_backoff(func, max_retries=MAX_RETRIES, initial_delay=RETRY_DELAY):
+def retry_with_backoff(func, request_id: int, max_retries=MAX_RETRIES, initial_delay=RETRY_DELAY):
     """
     Retry a function with exponential backoff
     
@@ -149,14 +149,14 @@ def retry_with_backoff(func, max_retries=MAX_RETRIES, initial_delay=RETRY_DELAY)
         except Exception as e:
             last_exception = e
             wait = delay * (2 ** retries)
-            logger.warning(f"Retry {retries + 1}/{max_retries} after error: {str(e)}. Waiting {wait:.2f}s")
+            logger.warning(f"Request {request_id}: Retry {retries + 1}/{max_retries} after error: {str(e)}. Waiting {wait:.2f}s")
             time.sleep(wait)
             retries += 1
     
-    logger.error(f"All {max_retries} retries failed")
+    logger.error(f"Request {request_id}: All {max_retries} retries failed")
     raise last_exception
 
-def openai_call(prompt: str) -> str:
+def openai_call(prompt: str, request_id: int) -> str:
     """
     Execute OpenAI API call with error handling and retries
     
@@ -180,12 +180,12 @@ def openai_call(prompt: str) -> str:
         return response.choices[0].message.content
     
     try:
-        return retry_with_backoff(_call)
+        return retry_with_backoff(_call, request_id)
     except Exception as e:
-        logger.error(f"OpenAI API call failed after retries: {str(e)}")
+        logger.error(f"Request {request_id}: OpenAI API call failed after retries: {str(e)}")
         raise RuntimeError(f"AI service error: {str(e)}")
 
-def together_call(prompt: str) -> str:
+def together_call(prompt: str, request_id: int) -> str:
     """
     Execute TogetherAI API call with error handling and retries
     
@@ -209,12 +209,12 @@ def together_call(prompt: str) -> str:
         return response.choices[0].message.content
     
     try:
-        return retry_with_backoff(_call)
+        return retry_with_backoff(_call, request_id)
     except Exception as e:
-        logger.error(f"TogetherAI API call failed after retries: {str(e)}")
+        logger.error(f"Request {request_id}: TogetherAI API call failed after retries: {str(e)}")
         raise RuntimeError(f"AI service error: {str(e)}")
 
-def ai_service_call(prompt: str) -> str:
+def ai_service_call(prompt: str, request_id: int) -> str:
     """
     Call preferred AI service with fallback
     
@@ -226,19 +226,19 @@ def ai_service_call(prompt: str) -> str:
     """
     try:
         if PREFERRED_AI_SERVICE.lower() == 'openai':
-            return openai_call(prompt)
+            return openai_call(prompt, request_id)
         else:
-            return together_call(prompt)
+            return together_call(prompt, request_id)
     except Exception as primary_error:
         # Fallback to the other service if primary fails
-        logger.warning(f"Primary AI service failed: {str(primary_error)}. Trying fallback.")
+        logger.warning(f"Request {request_id}: Primary AI service failed: {str(primary_error)}. Trying fallback.")
         try:
             if PREFERRED_AI_SERVICE.lower() == 'openai':
-                return together_call(prompt)
+                return together_call(prompt, request_id)
             else:
-                return openai_call(prompt)
+                return openai_call(prompt, request_id)
         except Exception as fallback_error:
-            logger.error(f"Fallback AI service also failed: {str(fallback_error)}")
+            logger.error(f"Request {request_id}: Fallback AI service also failed: {str(fallback_error)}")
             raise RuntimeError("All AI services failed to process the request")
 
 def validate_input(case: str, data: List[str]) -> None:
@@ -264,7 +264,7 @@ def validate_input(case: str, data: List[str]) -> None:
         if len(item) > 2048:  # Example limit
             raise ValueError("Data item exceeds maximum length")
         
-def hit_cache(case: str, data: List[str], cache_time: int) -> tuple[List[bool], List[str]]:
+def hit_cache(case: str, data: List[str], cache_time: int, request_id: int) -> tuple[List[bool], List[str]]:
     """
     Seperate list of items into cached and uncached results
     
@@ -299,15 +299,15 @@ def hit_cache(case: str, data: List[str], cache_time: int) -> tuple[List[bool], 
             else:
                 cache_hit_success.append(False)
         
-        logger.info(f"Accessed cache for case '{case}', cache hits: {len(cache_hit_vals)}")
+        logger.info(f"Request {request_id}: Accessed cache for case '{case}', cache hits: {len(cache_hit_vals)}")
     
     except Exception as e:
-        logger.warning(f"Cache access failed {str(e)}")
+        logger.warning(f"Request {request_id}: Cache access failed {str(e)}")
 
     client.close()
     return cache_hit_success, cache_hit_vals
 
-def update_cache(case: str, uncached_data: List[str], response_data: List[str]):
+def update_cache(case: str, uncached_data: List[str], response_data: List[str], request_id: int):
     """
     cache results from AI
     
@@ -334,10 +334,10 @@ def update_cache(case: str, uncached_data: List[str], response_data: List[str]):
             update_operation = { '$set': { "time": {'$gte': time_update}, "value": response_data[i] } }
             result = collection.update_one(query_filter, update_operation, upsert=True)
             number_updated += result.modified_count
-        logger.info(f"Updated cache for case '{case}', with {number_updated} data items")
+        logger.info(f"Request {request_id}: Updated cache for case '{case}', with {number_updated} data items")
     
     except Exception as e:
-        logger.warning(f"Cache update operation failed: {str(e)}")
+        logger.warning(f"Request {request_id}: Cache update operation failed: {str(e)}")
     
     client.close()
     
@@ -391,29 +391,29 @@ def main(case: str, data: List[str]) -> str:
         validate_input(case, data)
         
         # Load prompt configuration
-        config = load_prompt_config(case)
+        config = load_prompt_config(case, request_id)
 
         # Attempt to find cache hits for each item
-        cache_hit_success, cache_hit_vals = hit_cache(case, data, config['cache_time'])
+        cache_hit_success, cache_hit_vals = hit_cache(case, data, config['cache_time'], request_id)
 
         # Generate list free from successful cache hits
         uncached_data = generate_uncached_list(data, cache_hit_success)
 
         # Load RAG data if available
-        rag_bad, rag_ok = load_rag_data(config)
+        rag_bad, rag_ok = load_rag_data(config, request_id)
         
         # Generate API prompt
         api_string = f"{config['prompt']}\n" + "\n".join(uncached_data)
         
         # Get AI response
         logger.info(f"Request {request_id}: Calling AI service")
-        response = ai_service_call(api_string)
+        response = ai_service_call(api_string, request_id)
         
         # convert to list
         response_data = response.splitline()
 
         # cache responses
-        update_cache(case, uncached_data, response_data)
+        update_cache(case, uncached_data, response_data, request_id)
 
         # recombined cached and uncached results
         output = combine_data(cache_hit_vals, response_data, cache_hit_success)
