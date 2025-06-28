@@ -2,3 +2,15 @@
 2025-04-12 16:21:51,596 - __main__ - INFO - Running server health check...
 2025-04-12 16:28:43,732 - __main__ - WARNING - Health check failed to connect
 2025-04-12 16:28:43,738 - __main__ - INFO - 127.0.0.1 - - [12/Apr/2025 16:28:43] "GET /health HTTP/1.1" 200 -
+2025-06-28 10:26:25,638 - __main__ - CRITICAL - Failed to start server: [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions
+Traceback (most recent call last):
+  File "c:\Users\mmmcc\OneDrive\Documents\Whiteleaf\whiteleaf\main.py", line 252, in start_server
+    server = ThreadedHTTPServer(("0.0.0.0", PORT), RequestHandler)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\socketserver.py", line 456, in __init__
+    self.server_bind()
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\http\server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\socketserver.py", line 472, in server_bind
+    self.socket.bind(self.server_address)
+PermissionError: [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions
