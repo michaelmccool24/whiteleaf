@@ -114,9 +114,9 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
                 return
             
             # Encrypt sensitive response if needed
-            if should_encrypt_response(ai_response):
-                logger.info(f"Request {request_id}: Encrypting sensitive response")
-                encrypted_response = cipher_suite.encrypt(ai_response.encode())
+            #if should_encrypt_response(ai_response):
+             #   logger.info(f"Request {request_id}: Encrypting sensitive response")
+              #  encrypted_response = cipher_suite.encrypt(ai_response.encode())
                 # For this implementation, we're decrypting before sending to demonstrate the flow
                 # In a real production system, you might send the encrypted response to clients
                 # who have the decryption key
@@ -230,6 +230,7 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
         self.send_header("Content-Security-Policy", "default-src 'none'")
         self.end_headers()
         self.wfile.write(json.dumps(content).encode())
+        self.finish()
 
     def send_basic_response(self, code, content):
         """Send basic response without security headers"""
@@ -238,6 +239,7 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
         self.send_header("Content-type", "application/json")
         self.end_headers()
         self.wfile.write(json.dumps(content).encode())
+        self.finish
     
     def send_error_response(self, code, content):
         """Send error response with appropriate headers"""
@@ -247,6 +249,7 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
         self.send_header("Cache-Control", "no-store, no-cache, must-revalidate")
         self.end_headers()
         self.wfile.write(json.dumps(content).encode())
+        self.finish()
         
     
     def log_message(self, format, *args):
