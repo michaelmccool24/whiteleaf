@@ -369,7 +369,7 @@
         "cache_time": 43800
     },
     "WLUC48": {
-       "prompt": "Please determine on a scale from 1-100 the confidence that the following count of login failures from a sinlge user within an hour long period is indicative of malicious behavior. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
+       "prompt": "Please determine on a scale from 1-100 the confidence that the following count of login failures from a single user within an hour long period is indicative of malicious behavior. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/FailedAuth/",
         "rag_ok": "real_FailedAuth_wluc48.csv",
         "rag_bad": "bad_FailedAuth_wluc48.csv",
@@ -377,7 +377,7 @@
         "request_size": 30,
         "title": "AWS Failed Authentication",
         "cache_time": 43800
-    }
+    },
     "WLUC49": {
        "prompt": "Please determine on a scale from 1-100 the confidence that the following failed MFA authentication and MFA device deactivations from a single user is indicative of a malicious attack. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/MFAFailure/",
@@ -385,6 +385,7 @@
         "rag_bad": "bad_MFAFailure_wluc49.csv",
         "cache": "cached_MFAFailure_wluc49.csv",
         "request_size": 30,
-        "title": "AWS MFA Failure"
+        "title": "AWS MFA Failure",
+        "cache_time": 43800
     }
 }
