@@ -299,4 +299,13 @@
         "request_size": 30,
         "title": "AWS IAM Log Deletion"
     }
+    "WLUC44": {
+       "prompt": "Please determine on a scale from 1-100 the confidence that the following are attempts to maliciously delete critical Bedrock configurations, including model logging, safety guardrails, or knowledge bases. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
+        "dir": "./RAG/BedrockDeletion/",
+        "rag_ok": "real_BedrockDeletion_wluc44.csv",
+        "rag_bad": "bad_BedrockDeletion_wluc44.csv",
+        "cache": "cached_BedrockDeletion_wluc44.csv",
+        "request_size": 30,
+        "title": "AWS Bedrock Deletion"
+    }
 }
