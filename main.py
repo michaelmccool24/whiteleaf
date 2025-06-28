@@ -167,10 +167,10 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
                 
             # Call prompt.py with plaintext data
             try:
-                logger.info(f"Request {request_id}: Calling AI service with {len(prompts)} data items")
+                logger.info(f"Request {request_id}: Calling data processor with {len(prompts)} data items")
                 ai_response = prompt_main(case, prompts)
             except Exception as e:
-                logger.error(f"Request {request_id}: AI service error: {str(e)}")
+                logger.error(f"Request {request_id}: Data processor error: {str(e)}")
                 self.send_error_response(500, {"status": "error", "message": "AI processing error"})
                 return
             
