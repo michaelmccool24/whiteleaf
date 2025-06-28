@@ -70,20 +70,16 @@ def should_encrypt_response(response):
 class RequestHandler(http.server.SimpleHTTPRequestHandler):
     """HTTP request handler with encryption for payloads"""
     
-    protocol_version = 'HTTP/1.1'  # Enable keep-alive connections
+    protocol_version = 'HTTP/1.1'
     
     def setup(self):
         """Setup handler with timeout"""
         try:
-            # Call parent setup first to initialize connection
-            http.server.SimpleHTTPRequestHandler.setup(self)
-            # Then set socket timeout for the request
+            super().setup()
             if hasattr(self, 'connection') and self.connection:
                 self.connection.settimeout(REQUEST_TIMEOUT)
         except Exception as e:
             logger.error(f"Error setting up request handler: {e}")
-            # Don't raise here, let the request continue
-            pass
     
     def do_GET(self):
         """Handle GET requests with encrypted parameters"""
@@ -216,7 +212,7 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
         return (prompt_key, values_list)
 
     def send_secure_response(self, code, content):
-        """Send response with security headers"""
+        """Send response with security headers and close connection"""
         try:
             logger.info(f"AI Response, JSON: {content}")
             self.send_response(code)
@@ -225,66 +221,71 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
             self.send_header("X-Frame-Options", "DENY")
             self.send_header("X-XSS-Protection", "1; mode=block")
             self.send_header("Content-Security-Policy", "default-src 'none'")
+            self.send_header("Connection", "close")  # Add this header
             self.end_headers()
             self.wfile.write(json.dumps(content).encode())
         except Exception as e:
             logger.error(f"Error sending secure response: {e}")
         finally:
-            # Ensure connection is properly closed
+            self.close_connection = True  # Force connection close
             try:
                 self.wfile.flush()
             except:
                 pass
 
     def send_basic_response(self, code, content):
-        """Send basic response without security headers"""
+        """Send basic response and close connection"""
         try:
             logger.info(f"AI Response, JSON: {content}")
             self.send_response(code)
             self.send_header("Content-type", "application/json")
+            self.send_header("Connection", "close")  # Add this header
             self.end_headers()
             self.wfile.write(json.dumps(content).encode())
         except Exception as e:
             logger.error(f"Error sending basic response: {e}")
         finally:
-            # Ensure connection is properly closed
+            self.close_connection = True  # Force connection close
             try:
                 self.wfile.flush()
             except:
                 pass
     
     def send_error_response(self, code, content):
-        """Send error response with appropriate headers"""
+        """Send error response and close connection"""
         try:
             self.send_response(code)
             self.send_header("Content-type", "application/json")
             self.send_header("X-Content-Type-Options", "nosniff")
             self.send_header("Cache-Control", "no-store, no-cache, must-revalidate")
+            self.send_header("Connection", "close")  # Add this header
             self.end_headers()
             self.wfile.write(json.dumps(content).encode())
         except Exception as e:
             logger.error(f"Error sending error response: {e}")
         finally:
-            # Ensure connection is properly closed
+            self.close_connection = True  # Force connection close
             try:
                 self.wfile.flush()
             except:
                 pass
-        
+
+
     def log_message(self, format, *args):
         """Override to use our custom logger instead of stderr"""
         logger.info("%s - - [%s] %s" % (self.client_address[0], self.log_date_time_string(), format % args))
 
     def handle_one_request(self):
-        """Handle a single HTTP request with better error handling"""
+        """Handle a single HTTP request with connection closing"""
         try:
-            http.server.SimpleHTTPRequestHandler.handle_one_request(self)
-        except ConnectionResetError:
-            logger.debug("Client connection reset")
-        except BrokenPipeError:
-            logger.debug("Broken pipe - client disconnected")
+            super().handle_one_request()
+        except (ConnectionResetError, BrokenPipeError):
+            logger.debug("Client disconnected unexpectedly")
         except Exception as e:
             logger.error(f"Error handling request: {e}")
+        finally:
+            # Ensure connection is always closed
+            self.close_connection = True
 
 class ThreadedHTTPServer(socketserver.ThreadingMixIn, http.server.HTTPServer):
     """Handle requests in a separate thread."""
