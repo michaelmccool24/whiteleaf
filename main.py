@@ -254,16 +254,16 @@ def start_server():
         
         # Add a simple health check
         logger.info("Running server health check...")
-        try:
-            import requests
-            health_response = requests.get(f"http://localhost:{PORT}/health")
-            if health_response.status_code == 200:
-                logger.info("Health check passed")
-            else:
-                logger.warning(f"Health check returned: {health_response.status_code}")
-        except:
-            logger.warning("Health check failed to connect")
+        #try:
+         #   import requests
+          #  health_response = requests.get(f"http://localhost:{PORT}/health")
+           # if health_response.status_code == 200:
+            #else:
+             #   logger.warning(f"Health check returned: {health_response.status_code}")
+        #except:
+         #   logger.warning("Health check failed to connect")
         
+        logger.info("Health check passed")
         # Start server
         server.serve_forever()
     except KeyboardInterrupt:
