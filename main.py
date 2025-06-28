@@ -127,8 +127,9 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
 
                 #ai_response = encrypted_response
             
+            logger.info(f"Response: {ai_response}")
             logger.info(f"Request {request_id}: Sending successful response")
-            self.send_basic_response(200, {"status": "success", "data": ai_response})
+            self.send_basic_response(200, {"status": "success", "scores": ai_response})
 
         except Exception as e:
             logger.error(f"Request {request_id}: Unhandled exception: {str(e)}", exc_info=True)
