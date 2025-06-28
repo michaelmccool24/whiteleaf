@@ -232,6 +232,8 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.wfile.flush()
             except:
                 pass
+        
+        logger.info("Ready for another request...")
 
     def send_basic_response(self, code, content):
         """Send basic response and close connection"""
@@ -251,6 +253,8 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
             except:
                 pass
     
+        logger.info("Ready for another request...")
+        
     def send_error_response(self, code, content):
         """Send error response and close connection"""
         try:
@@ -269,6 +273,8 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.wfile.flush()
             except:
                 pass
+
+        logger.info("Ready for another request...")
 
 
     def log_message(self, format, *args):
