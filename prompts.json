@@ -365,6 +365,7 @@
         "rag_bad": "bad_Exfiltration_wluc47.csv",
         "cache": "cached_Exfiltration_wluc47.csv",
         "request_size": 30,
-        "title": "AWS Exfiltration"
+        "title": "AWS Exfiltration",
+        "cache_time": 43800
     }
 }
