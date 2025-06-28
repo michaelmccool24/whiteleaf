@@ -351,7 +351,7 @@ def generate_uncached_list(data: List[str], cache_hit_success: List[bool]) -> Li
         
     return uncached_data
 
-def combine_data(cache_hit_vals: List[str], response_data: List[str], cache_hit_success: List[bool]) -> str:
+def combine_data(cache_hit_vals: List[str], response_data: List[str], cache_hit_success: List[bool]) -> List[str]:
     output_data = []
     cache_hit_index = 0
     response_data_index = 0
@@ -364,8 +364,7 @@ def combine_data(cache_hit_vals: List[str], response_data: List[str], cache_hit_
             output_data.append(response_data[response_data_index])
             response_data_index += 1
 
-    output = "\n".join(output_data)
-    return output
+    return output_data
 
 def main(case: str, data: List[str]) -> str:
     """
