@@ -6,6 +6,8 @@ import json
 import urllib.parse
 import os
 import logging
+import signal
+import sys
 from cryptography.fernet import Fernet
 from prompt import main as prompt_main
 
@@ -71,21 +73,26 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
     protocol_version = 'HTTP/1.1'  # Enable keep-alive connections
     
     def setup(self):
-        self.timeout = REQUEST_TIMEOUT
-        http.server.SimpleHTTPRequestHandler.setup(self)
+        """Setup handler with timeout"""
+        try:
+            # Set socket timeout for the request
+            self.connection.settimeout(REQUEST_TIMEOUT)
+            http.server.SimpleHTTPRequestHandler.setup(self)
+        except Exception as e:
+            logger.error(f"Error setting up request handler: {e}")
+            raise
     
     def do_GET(self):
         """Handle GET requests with encrypted parameters"""
         request_id = threading.get_ident()
         logger.info(f"Request {request_id}: Processing GET request from {self.client_address}")
         
-        # Check request size to prevent DOS
-        #content_length = int(self.headers.get('Content-Length', 0))
-        #if content_length > MAX_REQUEST_SIZE:
-         #   self.send_error_response(413, {"status": "error", "message": "Request entity too large"})
-          #  return
-
         try:
+            # Handle health check endpoint
+            if self.path == "/health":
+                self.send_secure_response(200, {"status": "ok", "message": "Server is healthy"})
+                return
+            
             # Parse query parameters securely
             query_string = urllib.parse.urlparse(self.path).query
             query_params = urllib.parse.parse_qs(query_string)
@@ -113,20 +120,6 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_error_response(500, {"status": "error", "message": "AI processing error"})
                 return
             
-            # Encrypt sensitive response if needed
-            #if should_encrypt_response(ai_response):
-             #   logger.info(f"Request {request_id}: Encrypting sensitive response")
-              #  encrypted_response = cipher_suite.encrypt(ai_response.encode())
-                # For this implementation, we're decrypting before sending to demonstrate the flow
-                # In a real production system, you might send the encrypted response to clients
-                # who have the decryption key
-                #ai_response = cipher_suite.decrypt(encrypted_response).decode()
-
-                #sending back to client encrypted response
-
-
-                #ai_response = encrypted_response
-
             logger.info(f"Response: {ai_response}")
             logger.info(f"Request {request_id}: Sending successful response")
             self.send_basic_response(200, {"status": "success", "scores": ai_response})
@@ -182,13 +175,13 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
                 return
             
             # Encrypt sensitive response if needed
-            if should_encrypt_response(ai_response):
-                logger.info(f"Request {request_id}: Encrypting sensitive response")
-                encrypted_response = cipher_suite.encrypt(ai_response.encode())
+            #if should_encrypt_response(ai_response):
+             #   logger.info(f"Request {request_id}: Encrypting sensitive response")
+              #  encrypted_response = cipher_suite.encrypt(ai_response.encode())
                 # For this implementation, we're decrypting before sending to demonstrate the flow
                 # In a real production system, you might send the encrypted response to clients
                 # who have the decryption key
-                ai_response = cipher_suite.decrypt(encrypted_response).decode()
+               # ai_response = cipher_suite.decrypt(encrypted_response).decode()
             
             logger.info(f"Request {request_id}: Sending successful response")
             self.send_secure_response(200, {"status": "success", "data": ai_response})
@@ -221,85 +214,124 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
 
     def send_secure_response(self, code, content):
         """Send response with security headers"""
-        logger.info(f"AI Response, JSON: {content}")
-        self.send_response(code)
-        self.send_header("Content-type", "application/json")
-        self.send_header("X-Content-Type-Options", "nosniff")
-        self.send_header("X-Frame-Options", "DENY")
-        self.send_header("X-XSS-Protection", "1; mode=block")
-        self.send_header("Content-Security-Policy", "default-src 'none'")
-        self.end_headers()
-        self.wfile.write(json.dumps(content).encode())
-        self.finish()
+        try:
+            logger.info(f"AI Response, JSON: {content}")
+            self.send_response(code)
+            self.send_header("Content-type", "application/json")
+            self.send_header("X-Content-Type-Options", "nosniff")
+            self.send_header("X-Frame-Options", "DENY")
+            self.send_header("X-XSS-Protection", "1; mode=block")
+            self.send_header("Content-Security-Policy", "default-src 'none'")
+            self.end_headers()
+            self.wfile.write(json.dumps(content).encode())
+        except Exception as e:
+            logger.error(f"Error sending secure response: {e}")
+        finally:
+            # Ensure connection is properly closed
+            try:
+                self.wfile.flush()
+            except:
+                pass
 
     def send_basic_response(self, code, content):
         """Send basic response without security headers"""
-        logger.info(f"AI Response, JSON: {content}")
-        self.send_response(code)
-        self.send_header("Content-type", "application/json")
-        self.end_headers()
-        self.wfile.write(json.dumps(content).encode())
-        self.finish
+        try:
+            logger.info(f"AI Response, JSON: {content}")
+            self.send_response(code)
+            self.send_header("Content-type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps(content).encode())
+        except Exception as e:
+            logger.error(f"Error sending basic response: {e}")
+        finally:
+            # Ensure connection is properly closed
+            try:
+                self.wfile.flush()
+            except:
+                pass
     
     def send_error_response(self, code, content):
         """Send error response with appropriate headers"""
-        self.send_response(code)
-        self.send_header("Content-type", "application/json")
-        self.send_header("X-Content-Type-Options", "nosniff")
-        self.send_header("Cache-Control", "no-store, no-cache, must-revalidate")
-        self.end_headers()
-        self.wfile.write(json.dumps(content).encode())
-        self.finish()
+        try:
+            self.send_response(code)
+            self.send_header("Content-type", "application/json")
+            self.send_header("X-Content-Type-Options", "nosniff")
+            self.send_header("Cache-Control", "no-store, no-cache, must-revalidate")
+            self.end_headers()
+            self.wfile.write(json.dumps(content).encode())
+        except Exception as e:
+            logger.error(f"Error sending error response: {e}")
+        finally:
+            # Ensure connection is properly closed
+            try:
+                self.wfile.flush()
+            except:
+                pass
         
-    
     def log_message(self, format, *args):
         """Override to use our custom logger instead of stderr"""
         logger.info("%s - - [%s] %s" % (self.client_address[0], self.log_date_time_string(), format % args))
+
+    def handle_one_request(self):
+        """Handle a single HTTP request with better error handling"""
+        try:
+            http.server.SimpleHTTPRequestHandler.handle_one_request(self)
+        except ConnectionResetError:
+            logger.debug("Client connection reset")
+        except BrokenPipeError:
+            logger.debug("Broken pipe - client disconnected")
+        except Exception as e:
+            logger.error(f"Error handling request: {e}")
 
 class ThreadedHTTPServer(socketserver.ThreadingMixIn, http.server.HTTPServer):
     """Handle requests in a separate thread."""
     daemon_threads = True
     allow_reuse_address = True
-    request_queue_size = 20
+    request_queue_size = 50  # Increased queue size for better handling of concurrent requests
+    timeout = REQUEST_TIMEOUT
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Set SO_REUSEADDR to allow immediate reuse of the address
+        self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
+def signal_handler(signum, frame):
+    """Handle shutdown signals gracefully"""
+    logger.info(f"Received signal {signum}, shutting down server...")
+    sys.exit(0)
 
 def start_server():
     """Start the HTTP server with encrypted payload handling"""
+    # Set up signal handlers for graceful shutdown
+    signal.signal(signal.SIGINT, signal_handler)
+    signal.signal(signal.SIGTERM, signal_handler)
+    
+    server = None
     try:
         server = ThreadedHTTPServer(("0.0.0.0", PORT), RequestHandler)
         logger.info(f"Server started on port {PORT}")
+        logger.info(f"Server can handle up to {server.request_queue_size} queued connections")
+        logger.info("Server ready to accept multiple concurrent connections")
         
-        # Add a simple health check
-        logger.info("Running server health check...")
-        #try:
-         #   import requests
-          #  health_response = requests.get(f"http://localhost:{PORT}/health")
-           # if health_response.status_code == 200:
-            #else:
-             #   logger.warning(f"Health check returned: {health_response.status_code}")
-        #except:
-         #   logger.warning("Health check failed to connect")
-        
-        logger.info("Health check passed")
         # Start server
         server.serve_forever()
+        
     except KeyboardInterrupt:
-        logger.info("Server stopping...")
+        logger.info("Received keyboard interrupt, server stopping...")
     except Exception as e:
         logger.critical(f"Failed to start server: {str(e)}", exc_info=True)
         raise
+    finally:
+        if server:
+            try:
+                server.shutdown()
+                server.server_close()
+                logger.info("Server shutdown complete")
+            except Exception as e:
+                logger.error(f"Error during server shutdown: {e}")
 
 if __name__ == "__main__":
-    # Add a healthcheck route
-    RequestHandler.health_check_path = "/health"
-    original_do_GET = RequestHandler.do_GET
-    
-    def do_GET_with_health(self):
-        if self.path == self.health_check_path:
-            self.send_secure_response(200, {"status": "ok"})
-        else:
-            original_do_GET(self)
-    
-    RequestHandler.do_GET = do_GET_with_health
+    import socket  # Add missing import for socket operations
     
     # Start the server
     start_server()
