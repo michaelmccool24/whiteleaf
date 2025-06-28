@@ -401,26 +401,24 @@ def main(case: str, data: List[str]) -> str:
 
         # Load RAG data if available
         rag_bad, rag_ok = load_rag_data(config, request_id)
-        
-        # Generate API prompt
-        api_string = f"{config['prompt']}\n" + "\n".join(uncached_data)
-        
-        # Get AI response
-        logger.info(f"Request {request_id}: Calling AI service")
-        response = ai_service_call(api_string, request_id)
-        
-        # convert to list
-        response_data = response.splitlines()
 
-        logger.info(f"Request {request_id}: response_data = {response_data}")
+        response_data = []
+        if len(uncached_data) > 0:
+            # Generate API prompt
+            api_string = f"{config['prompt']}\n" + "\n".join(uncached_data)
+        
+            # Get AI response
+            logger.info(f"Request {request_id}: Calling AI service")
+            response = ai_service_call(api_string, request_id)
+        
+            # convert to list
+            response_data = response.splitlines()
 
-        # cache responses
-        update_cache(case, uncached_data, response_data, request_id)
+            # cache responses
+            update_cache(case, uncached_data, response_data, request_id)
 
         # recombined cached and uncached results
         output = combine_data(cache_hit_vals, response_data, cache_hit_success)
-        
-        logger.info(f"Request {request_id}: output = {output}")
 
         elapsed_time = time.time() - start_time
         logger.info(f"Request {request_id}: Completed in {elapsed_time:.2f}s")
