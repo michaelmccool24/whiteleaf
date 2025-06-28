@@ -221,7 +221,7 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
 
     def send_secure_response(self, code, content):
         """Send response with security headers"""
-        logger.info(f"AI Response, JSON: {content})
+        logger.info(f"AI Response, JSON: {content}")
         self.send_response(code)
         self.send_header("Content-type", "application/json")
         self.send_header("X-Content-Type-Options", "nosniff")
@@ -233,6 +233,7 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
 
     def send_basic_response(self, code, content):
         """Send basic response without security headers"""
+        logger.info(f"AI Response, JSON: {content}")
         self.send_response(code)
         self.send_header("Content-type", "application/json")
         self.end_headers()
