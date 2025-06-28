@@ -123,7 +123,9 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
                 #ai_response = cipher_suite.decrypt(encrypted_response).decode()
 
                 #sending back to client encrypted response
-                ai_response = encrypted_response
+
+                
+                #ai_response = encrypted_response
             
             logger.info(f"Request {request_id}: Sending successful response")
             self.send_secure_response(200, {"status": "success", "data": ai_response})
