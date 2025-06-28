@@ -124,11 +124,12 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
 
                 #sending back to client encrypted response
 
-                
+
                 #ai_response = encrypted_response
-            
+
+            logger.info(f"Response: {ai_response}")
             logger.info(f"Request {request_id}: Sending successful response")
-            self.send_secure_response(200, {"status": "success", "data": ai_response})
+            self.send_basic_response(200, {"status": "success", "scores": ai_response})
 
         except Exception as e:
             logger.error(f"Request {request_id}: Unhandled exception: {str(e)}", exc_info=True)
@@ -220,12 +221,21 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
 
     def send_secure_response(self, code, content):
         """Send response with security headers"""
+        logger.info(f"AI Response, JSON: {content}")
         self.send_response(code)
         self.send_header("Content-type", "application/json")
         self.send_header("X-Content-Type-Options", "nosniff")
         self.send_header("X-Frame-Options", "DENY")
         self.send_header("X-XSS-Protection", "1; mode=block")
         self.send_header("Content-Security-Policy", "default-src 'none'")
+        self.end_headers()
+        self.wfile.write(json.dumps(content).encode())
+
+    def send_basic_response(self, code, content):
+        """Send basic response without security headers"""
+        logger.info(f"AI Response, JSON: {content}")
+        self.send_response(code)
+        self.send_header("Content-type", "application/json")
         self.end_headers()
         self.wfile.write(json.dumps(content).encode())
     
@@ -237,6 +247,7 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
         self.send_header("Cache-Control", "no-store, no-cache, must-revalidate")
         self.end_headers()
         self.wfile.write(json.dumps(content).encode())
+        
     
     def log_message(self, format, *args):
         """Override to use our custom logger instead of stderr"""
