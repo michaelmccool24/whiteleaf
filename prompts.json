@@ -1,12 +1,13 @@
 {
     "WLUC0": {
-        "prompt": "Please determine if the following behaviors acting on a single user/system indicate a potential cybersecurity threat deserving human investigation. Return only "yes" or "no", nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
+        "prompt": "Please determine if the following behaviors acting on a single user/system indicate a potential cybersecurity threat deserving human investigation. Return only 'yes' or 'no', nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/DGA_domains/",
         "rag_ok": "real_domains.csv",
         "rag_bad": "generated_domains.csv",
         "cache": "cached_domains.csv",
         "request_size": 30,
-        "title": "Whiteleaf Notable Generator"
+        "title": "Whiteleaf Notable Generator",
+        "cache_time": 43800
     },
     "WLUC1": {
         "prompt": "Please determine on a scale from 1-100 the confidence that each of the following domains is DGA generated. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
@@ -297,7 +298,7 @@
         "request_size": 30,
         "title": "AWS Abnormal ECR Container Upload",
         "cache_time": 43800
-    }
+    },
     "WLUC41": {
        "prompt": "Please determine on a scale from 1-100 the confidence that the following are an abnormal amount of failed AWS IAM role assumptions, indicating that someone may be guessing IAM role names. Return only integers, nothing else. Return the results as a newline separated list with no other characters or stylistic elements.",
         "dir": "./RAG/PrivilegeEscalation/",
@@ -317,7 +318,7 @@
         "request_size": 30,
         "title": "AWS ACL Creation/Deletion",
         "cache_time": 43800
-    }
+    },
     "WLUC42": {
        "prompt": "Please determine on a scale from 1-100 the confidence that the following are malicious group or policy deletions including suspicious failed attempts from non-AWS user agents. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/LogDeletion/",
@@ -327,7 +328,7 @@
         "request_size": 30,
         "title": "AWS IAM Log Deletion",
         "cache_time": 43800
-    }
+    },
     "WLUC44": {
        "prompt": "Please determine on a scale from 1-100 the confidence that the following are attempts to maliciously delete critical Bedrock configurations, including model logging, safety guardrails, or knowledge bases. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/BedrockDeletion/",
@@ -337,7 +338,7 @@
         "request_size": 30,
         "title": "AWS Bedrock Deletion",
         "cache_time": 43800
-    }
+    },
     "WLUC45": {
        "prompt": "Please determine on a scale from 1-100 the confidence that the following ECR image vulnerability scan returned findings that are indicative of a security risk. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/ECRContainerScanning/",
@@ -347,7 +348,7 @@
         "request_size": 30,
         "title": "AWS ECR Container Scanning",
         "cache_time": 43800
-    }
+    },
      "WLUC46": {
        "prompt": "Please determine on a scale from 1-100 the confidence that the following upload is being done by an unauthorized user or at an abnormal time. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/ECRAbnormalUpload/",
@@ -357,7 +358,7 @@
         "request_size": 30,
         "title": "AWS ECR Abnormal Upload",
         "cache_time": 43800
-    }
+    },
      "WLUC47": {
        "prompt": "Please determine on a scale from 1-100 the confidence that the snapshot activity, DataSync Task creation, S3 Bucket replication, job creation, or S3 object access for a single user is malicious. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/Exfiltration/",
