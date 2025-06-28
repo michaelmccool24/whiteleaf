@@ -331,7 +331,7 @@ def update_cache(case: str, uncached_data: List[str], response_data: List[str], 
     try:
         for i in range(len(uncached_data)):
             query_filter = {'key': uncached_data[i]}
-            update_operation = { '$set': { "time": {'$gte': time_update}, "value": response_data[i] } }
+            update_operation = { '$set': { "time":  time_update, "value": response_data[i] } }
             result = collection.update_one(query_filter, update_operation, upsert=True)
             number_updated += result.modified_count
         logger.info(f"Request {request_id}: Updated cache for case '{case}', with {number_updated} data items")
