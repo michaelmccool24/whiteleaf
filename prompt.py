@@ -333,7 +333,7 @@ def update_cache(case: str, uncached_data: List[str], response_data: List[str], 
             query_filter = {'key': uncached_data[i]}
             update_operation = { '$set': { "time":  time_update, "value": response_data[i] } }
             result = collection.update_one(query_filter, update_operation, upsert=True)
-            number_updated += result.modified_count
+            number_updated += result.raw_result["n"]
         logger.info(f"Request {request_id}: Updated cache for case '{case}', with {number_updated} data items")
     
     except Exception as e:
