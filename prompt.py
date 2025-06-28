@@ -5,6 +5,8 @@ import time
 import logging
 from typing import List, Dict, Any, Optional
 from functools import lru_cache
+from pymongo import MongoClient
+from datetime import datetime, timedelta
 
 # Configure logging
 logging.basicConfig(
@@ -18,6 +20,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Environment-based configuration
+MONGO_URI = "localhost:27017"
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
 TOGETHERAI_API_KEY = os.environ.get('TOGETHERAI_API_KEY')
 OPENAI_MODEL = os.environ.get('OPENAI_MODEL', 'gpt-4o')
@@ -260,6 +263,109 @@ def validate_input(case: str, data: List[str]) -> None:
             raise ValueError("All data items must be strings")
         if len(item) > 2048:  # Example limit
             raise ValueError("Data item exceeds maximum length")
+        
+def hit_cache(case: str, data: List[str], cache_time: int) -> tuple[List[bool], List[str]]:
+    """
+    Seperate list of items into cached and uncached results
+    
+    Args:
+        case: The case identifier
+        data: List of input data strings
+        cache_time: Number of minutes to cache back
+        
+    Raises:
+        ValueError: If caching is not working
+    """
+
+    client = MongoClient(MONGO_URI)
+    db = client["cache"]
+    collection = db[case]
+
+    time_cutoff = datetime.now() - timedelta(minutes=cache_time)
+
+    cache_hit_success = []
+    cache_hit_vals = []
+
+    try:
+        for item in data:
+            query = {
+                "key": item,
+                "time": {'$gte': time_cutoff}
+            }
+
+            if result := collection.find_one(query):
+                cache_hit_success.append(True)
+                cache_hit_vals.append(result["value"])
+            else:
+                cache_hit_success.append(False)
+        
+        logger.info(f"Accessed cache for case '{case}', cache hits: {len(cache_hit_vals)}")
+    
+    except Exception as e:
+        logger.warning(f"Cache access failed {str(e)}")
+
+    client.close()
+    return cache_hit_success, cache_hit_vals
+
+def update_cache(case: str, uncached_data: List[str], response_data: List[str]):
+    """
+    cache results from AI
+    
+    Args:
+        case: The case identifier
+        uncached_data: List of input data strings that did not have a cache hit
+        response_data: List of AI responses to uncached_data
+        
+        
+    Raises:
+        ValueError: If caching is not working
+    """
+
+    client = MongoClient(MONGO_URI)
+    db = client["cache"]
+    collection = db[case]
+
+    time_update = datetime.now()
+    number_updated = 0
+
+    try:
+        for i in range(len(uncached_data)):
+            query_filter = {'key': uncached_data[i]}
+            update_operation = { '$set': { "time": {'$gte': time_update}, "value": response_data[i] } }
+            result = collection.update_one(query_filter, update_operation, upsert=True)
+            number_updated += result.modified_count
+        logger.info(f"Updated cache for case '{case}', with {number_updated} data items")
+    
+    except Exception as e:
+        logger.warning(f"Cache update operation failed: {str(e)}")
+    
+    client.close()
+    
+    return
+
+def generate_uncached_list(data: List[str], cache_hit_success: List[bool]) -> List[str]:
+    uncached_data = []
+    for i in range(len(data)):
+        if not cache_hit_success[i]:
+            uncached_data.append(data[i])
+        
+    return uncached_data
+
+def combine_data(cache_hit_vals: List[str], response_data: List[str], cache_hit_success: List[bool]) -> str:
+    output_data = []
+    cache_hit_index = 0
+    response_data_index = 0
+
+    for i in range(len(cache_hit_success)):
+        if cache_hit_success[i]:
+            output_data.append(cache_hit_vals[cache_hit_index])
+            cache_hit_index += 1
+        else:
+            output_data.append(response_data[response_data_index])
+            response_data_index += 1
+
+    output = "\n".join(output_data)
+    return output
 
 def main(case: str, data: List[str]) -> str:
     """
@@ -286,20 +392,35 @@ def main(case: str, data: List[str]) -> str:
         
         # Load prompt configuration
         config = load_prompt_config(case)
-        
+
+        # Attempt to find cache hits for each item
+        cache_hit_success, cache_hit_vals = hit_cache(case, data, config['cache_time'])
+
+        # Generate list free from successful cache hits
+        uncached_data = generate_uncached_list(data, cache_hit_success)
+
         # Load RAG data if available
         rag_bad, rag_ok = load_rag_data(config)
         
         # Generate API prompt
-        api_string = f"{config['prompt']}\n" + "\n".join(data)
+        api_string = f"{config['prompt']}\n" + "\n".join(uncached_data)
         
         # Get AI response
         logger.info(f"Request {request_id}: Calling AI service")
         response = ai_service_call(api_string)
         
+        # convert to list
+        response_data = response.splitline()
+
+        # cache responses
+        update_cache(case, uncached_data, response_data)
+
+        # recombined cached and uncached results
+        output = combine_data(cache_hit_vals, response_data, cache_hit_success)
+
         elapsed_time = time.time() - start_time
         logger.info(f"Request {request_id}: Completed in {elapsed_time:.2f}s")
-        return response
+        return output
 
     except ValueError as e:
         logger.warning(f"Request {request_id}: Validation error: {str(e)}")
