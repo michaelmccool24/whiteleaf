@@ -126,7 +126,7 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
 
 
                 #ai_response = encrypted_response
-            
+
             logger.info(f"Response: {ai_response}")
             logger.info(f"Request {request_id}: Sending successful response")
             self.send_basic_response(200, {"status": "success", "scores": ai_response})
@@ -221,6 +221,7 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
 
     def send_secure_response(self, code, content):
         """Send response with security headers"""
+        logger.info(f"AI Response, JSON: {content})
         self.send_response(code)
         self.send_header("Content-type", "application/json")
         self.send_header("X-Content-Type-Options", "nosniff")
@@ -245,6 +246,7 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
         self.send_header("Cache-Control", "no-store, no-cache, must-revalidate")
         self.end_headers()
         self.wfile.write(json.dumps(content).encode())
+        
     
     def log_message(self, format, *args):
         """Override to use our custom logger instead of stderr"""
