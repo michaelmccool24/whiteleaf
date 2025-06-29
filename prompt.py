@@ -300,10 +300,10 @@ def hit_cache(case: str, data: List[str], cache_time: int, request_id: int) -> t
             else:
                 cache_hit_success.append(False)
         
-        logger.info(f"Request {request_id}: Accessed cache for case '{case}', cache hits: {len(cache_hit_vals)}")
+        logger.info(f"Request {request_id}: Accessed XCDB for case '{case}', cache hits: {len(cache_hit_vals)}")
     
     except Exception as e:
-        logger.warning(f"Request {request_id}: Cache access failed {str(e)}")
+        logger.warning(f"Request {request_id}: XCDB access failed {str(e)}")
 
     client.close()
     return cache_hit_success, cache_hit_vals
@@ -335,10 +335,10 @@ def update_cache(case: str, uncached_data: List[str], response_data: List[str], 
             update_operation = { '$set': { "time":  time_update, "value": response_data[i] } }
             result = collection.update_one(query_filter, update_operation, upsert=True)
             number_updated += result.raw_result["n"]
-        logger.info(f"Request {request_id}: Updated cache for case '{case}', with {number_updated} data items")
+        logger.info(f"Request {request_id}: Updated XCDB for case '{case}', with {number_updated} data items")
     
     except Exception as e:
-        logger.warning(f"Request {request_id}: Cache update operation failed: {str(e)}")
+        logger.warning(f"Request {request_id}: XCDB update operation failed: {str(e)}")
     
     client.close()
     
