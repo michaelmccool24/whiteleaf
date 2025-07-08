@@ -397,4 +397,13 @@
         "request_size": 30,
         "title": "AWS Authentication from One IP to Multiple Users"
     }
+    "WLUC51": {
+       "prompt": "Please determine on a scale from 1-100 the confidence that the following unusual AWS cloud events are malicious in nature. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
+        "dir": "./RAG/CloudInstanceCreation/",
+        "rag_ok": "real_CloudInstanceCreation_wluc51.csv",
+        "rag_bad": "bad_CloudInstanceCreation_wluc51.csv",
+        "cache": "cached_CloudInstanceCreation_wluc51.csv",
+        "request_size": 30,
+        "title": "AWS Cloud Instance Creation"
+    }
 }
