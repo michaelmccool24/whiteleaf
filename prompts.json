@@ -261,7 +261,7 @@
         "title": "AWS Cloudtrail Manipulation"
     }
     "WLUC54": {
-       "prompt": "Please determine on a scale from 1-100 the confidence that the following activity indicates a potential attack or unauthorized access to Amazon S3 resources. Evaluate based on the raw data provided, including IP address, user identity, permissions granted, geographic origin, and request method. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
+       "prompt": "Please determine on a scale from 1–100 the confidence that each of the following events represents risky or malicious activity involving unauthorized public access to S3 buckets. Each event involves a user assigning open access permissions (e.g., READ, WRITE, FULL_CONTROL) to all users or authenticated users through a 'PutBucketAcl' API call. Consider whether the bucket name, permission type, or access level is typical or suspicious. Provided fields include the S3 bucket name, the permission granted, the type of public access (via URI), and the user ARN that made the request. Return only integers from 1–100, one per line, in order, with no other text.",
         "dir": "./RAG/S3AccessDetection/",
         "rag_ok": "real_S3AccessDetection_wluc54.csv",
         "rag_bad": "bad_S3AccessDetection_wluc54.csv",
