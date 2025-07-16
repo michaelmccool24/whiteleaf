@@ -261,7 +261,7 @@
         "title": "AWS Cloudtrail Manipulation"
     }
     "WLUC53": {
-       "prompt": "Please determine on a scale from 1–100 the confidence that each of the following login events represents malicious activity, such as account compromise or unauthorized access. Consider contextual indicators including previously unseen login source IPs, geographic locations (city, region, country), and new users. Each event includes the source IP, username, and location data. Use this information to assess anomaly severity. Return only integers, one per line, with no additional text or formatting.",
+       "prompt": "Please determine on a scale from 1–100 the confidence that each of the following login events represents suspicious activity based on contextual anomalies in the source IP address. Each prompt contains information about whether the source IP is being seen for the first time from a new geographic location (city, region, or country), or whether it's associated with a new login pattern (such as a first-time user or first-time source). Use this context to assess how likely each login is to represent malicious or unauthorized behavior. Return only integers, one per line, with no additional text or formatting.",
         "dir": "./RAG/ConsoleLogin/",
         "rag_ok": "real_ConsoleLogin_wluc53.csv",
         "rag_bad": "bad_ConsoleLogin_wluc53.csv",
