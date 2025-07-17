@@ -423,5 +423,14 @@
         "cache": "cached_ConsoleLogin_wluc53.csv",
         "request_size": 30,
         "title": "AWS Console Login"
+    },
+    "WLUC63": {
+       "prompt": "Please determine on a scale from 1–100 the confidence that this successful Azure authentication represents suspicious or risky behavior. Consider contextual clues such as use of Microsoft Azure PowerShell for potential enumeration or abuse of privileges, or risky use of single-factor authentication that may signal misconfiguration or weak account protection. Evaluate based on source IP, user identity, application used, and authentication method.",
+        "dir": "./RAG/AzureSuccessAuth/",
+        "rag_ok": "real_AzureSuccessAuth_wluc63.csv",
+        "rag_bad": "bad_AzureSuccessAuth_wluc63.csv",
+        "cache": "cached_AzureSuccessAuth_wluc63.csv",
+        "request_size": 30,
+        "title": "Azure Successful Authentication"
     }
 }
