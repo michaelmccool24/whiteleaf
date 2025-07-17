@@ -415,4 +415,13 @@
         "request_size": 30,
         "title": "AWS Cloud Provisioning"
     }
+    "WLUC53": {
+       "prompt": "Please determine on a scale from 1–100 the confidence that each of the following AWS console login events represents suspicious activity based on contextual anomalies in the source IP address. Each prompt contains information about whether the source IP is being seen for the first time from a new geographic location (city, region, or country), or whether it's associated with a new login pattern (such as a first-time user or first-time source). Use this context and the IP reputation to assess how likely each login is to represent malicious or unauthorized behavior. Return only integers, nothing else. Return the results as a newline separated list with no other characters or stylistic elements.",
+        "dir": "./RAG/ConsoleLogin/",
+        "rag_ok": "real_ConsoleLogin_wluc53.csv",
+        "rag_bad": "bad_ConsoleLogin_wluc53.csv",
+        "cache": "cached_ConsoleLogin_wluc53.csv",
+        "request_size": 30,
+        "title": "AWS Console Login"
+    }
 }
