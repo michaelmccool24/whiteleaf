@@ -423,5 +423,14 @@
         "cache": "cached_ConsoleLogin_wluc53.csv",
         "request_size": 30,
         "title": "AWS Console Login"
+    },
+    "WLUC65": {
+       "prompt": "Please determine on a scale from 1–100 your confidence that this activity indicates an adversary attempting to modify or add new multi-factor authentication methods to an Azure AD account in order to maintain persistence or escalate privileges. The raw data shows MFA-related changes, such as new method registrations or updates to existing ones, along with metadata like the affected user, source system, and operation type. Make sure to factor in this information when determining the risk score. Return only integers, nothing else. Return the results as a newline separated list with no other characters or stylistic elements.",
+        "dir": "./RAG/NewMFAMethod/",
+        "rag_ok": "real_NewMFAMethod_wluc65.csv",
+        "rag_bad": "bad_NewMFAMethod_wluc65.csv",
+        "cache": "cached_NewMFAMethod_wluc65.csv",
+        "request_size": 30,
+        "title": "Azure New MFA Method"
     }
 }
