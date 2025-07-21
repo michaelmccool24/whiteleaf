@@ -423,5 +423,14 @@
         "cache": "cached_ConsoleLogin_wluc53.csv",
         "request_size": 30,
         "title": "AWS Console Login"
+    },
+    "WLUC64": {
+       "prompt": "Please determine on a scale from 1–100 the confidence that this activity represents risky or malicious behavior. The data shows Azure PIM role assignments and activations, including the source IP, destination system, user, and initiator involved. This activity may indicate privilege escalation, especially if it originates from unusual sources or involves unexpected roles or users. Look for anomalies in who initiated the role changes, the roles being assigned or activated, and whether the source or user is previously unseen or rarely involved in such actions. Return only integers, nothing else. Return the results as a newline separated list with no other characters or stylistic elements.",
+        "dir": "./RAG/PIMroles/",
+        "rag_ok": "real_PIMroles_wluc64.csv",
+        "rag_bad": "bad_PIMroles_wluc64.csv",
+        "cache": "cached_PIMroles_wluc64.csv",
+        "request_size": 30,
+        "title": "Azure PIM Role"
     }
 }
