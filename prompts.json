@@ -424,4 +424,13 @@
         "request_size": 30,
         "title": "AWS Console Login"
     }
+    "WLUC54": {
+       "prompt": "Please determine on a scale from 1–100 how suspicious the following instances are. Each instance is the first time that the provided IP address has accessed a specific S3 bucket within the customer environment. Take into account the IP reputation and physical location of the provided IP addresss. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
+        "dir": "./RAG/S3AccessDetection/",
+        "rag_ok": "real_S3AccessDetection_wluc54.csv",
+        "rag_bad": "bad_S3AccessDetection_wluc54.csv",
+        "cache": "cached_S3AccessDetection_wluc54.csv",
+        "request_size": 30,
+        "title": "AWS S3 Access Detection"
+    }
 }
