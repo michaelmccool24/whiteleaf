@@ -398,13 +398,13 @@
         "title": "AWS Authentication from One IP to Multiple Users"
     }
     "WLUC60": {
-       "prompt": "Please determine on a scale from 1-100 the confidence that the following Azure AD and Exchange Online activity are indicative of malicious attempts to gain a privileged role. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
-        "dir": "./RAG/AzureRoleAssignment/",
-        "rag_ok": "real_AzureRoleAssignment_wluc60.csv",
-        "rag_bad": "bad_AzureRoleAssignment_wluc60.csv",
-        "cache": "cached_AzureRoleAssignment_wluc60.csv",
+       "prompt": "Please determine on a scale from 1-100 the confidence that the following assigment of the ApplicationImpersonation role in the Microsoft O365 Exchange environment is malicious. The ApplicationImpersonation role enables the user to have access to other people's mailboxes.  Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
+        "dir": "./RAG/O365AppImpersonation/",
+        "rag_ok": "real_O365AppImpersonation_wluc60.csv",
+        "rag_bad": "bad_O365AppImpersonation_wluc60.csv",
+        "cache": "cached_O365AppImpersonation_wluc60.csv",
         "request_size": 30,
-        "title": "Azure 0365 Role Assignment"
+        "title": "O365 ApplicationImpersonation Role Assignment"
         "cache_time": 43800
     }
 }
