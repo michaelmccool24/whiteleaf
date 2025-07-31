@@ -432,5 +432,14 @@
         "cache": "cached_S3AccessDetection_wluc54.csv",
         "request_size": 30,
         "title": "AWS S3 Access Detection"
+    },
+    "WLUC55": {
+       "prompt": "Please determine on a scale from 1–100 the likelihood that this activity represents suspicious or potentially malicious behavior. The raw data sent includes the number of DeleteBucket operations executed by a user within a 24-hour window. This is evaluated against their historical activity using interquartile range (IQR)-based statistical outlier detection. Elevated DeleteBucket counts(those significantly exceeding a user's normal deletion pattern) may indicate intentional mass deletion of S3 buckets, which could be symptomatic of insider threats, misconfigurations, or compromised credentials. Please assess the risk based on the unusual volume and context of deletion activity. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
+        "dir": "./RAG/BucketDeletionSpike/",
+        "rag_ok": "real_BucketDeletionSpike_wluc55.csv",
+        "rag_bad": "bad_BucketDeletionSpike_wluc55.csv",
+        "cache": "cached_BucketDeletionSpike_wluc55.csv",
+        "request_size": 30,
+        "title": "AWS Bucket Deletion Spike"
     }
 }
