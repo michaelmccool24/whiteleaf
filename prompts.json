@@ -261,7 +261,7 @@
         "title": "AWS Cloudtrail Manipulation"
     }
     "WLUC57": {
-       "prompt": "Please determine on a scale from 1-100 the confidence that the following password and account activity is indicative of malicious intent. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
+       "prompt": "Please determine on a scale from 1-100 the confidence that the following password and account activity is indicative of malicious intent. Each entry represents how many unique accounts have had their password reset, account disabled, or account deleted by a single user within an hour time period. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/MultiAccManipulation/",
         "rag_ok": "real_MultiAccManipulation_wluc57.csv",
         "rag_bad": "bad_MultiAccManipulation_wluc57.csv",
