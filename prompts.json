@@ -500,4 +500,14 @@
         "title": "Azure Remote Management"
         "cache_time": 43800
     }
+    "WLUC62": {
+       "prompt": "Please determine on a scale from 1–100 the confidence that the following Azure Automation Account/Runbook update or creation is malicious or unauthorized. Each entry contains the activity type(automation account or runbook) and the distinct count of how many times an individual user created an automation or runbook account. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
+        "dir": "./RAG/AutomationCreation/",
+        "rag_ok": "real_AutomationCreation_wluc62.csv",
+        "rag_bad": "bad_AutomationCreation_wluc62.csv",
+        "cache": "cached_AutomationCreation_wluc62.csv",
+        "request_size": 30,
+        "title": "Azure Automation Creation"
+        "cache_time": 43800
+    }
 }
