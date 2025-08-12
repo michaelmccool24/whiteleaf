@@ -490,4 +490,14 @@
         "title": "O365 ApplicationImpersonation Role Assignment"
         "cache_time": 43800
     }
+    "WLUC61": {
+       "prompt": "Please determine on a scale from 1–100 the confidence that this Microsoft Intune device management event represents malicious behavior or policy abuse, such as unauthorized configuration changes, SYSTEM-level code execution, or lateral movement via device management tools. Each entry contains the specific action(ex: created, updated) and the specific Azure operation name(such as DeviceManagementConfigurationPolicyAssignment) for an individual user. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
+        "dir": "./RAG/RemoteManagement/",
+        "rag_ok": "real_RemoteManagement_wluc61.csv",
+        "rag_bad": "bad_RemoteManagement_wluc61.csv",
+        "cache": "cached_RemoteManagement_wluc61.csv",
+        "request_size": 30,
+        "title": "Azure Remote Management"
+        "cache_time": 43800
+    }
 }
