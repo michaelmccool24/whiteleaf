@@ -416,7 +416,7 @@
         "title": "AWS Cloud Provisioning"
     }
     "WLUC62": {
-       "prompt": "Please determine on a scale from 1–100 the confidence that the following Azure Automation activity reflects an unauthorized or unusual provisioning event. This includes creation of Automation Accounts or Runbooks by specific users and source IPs, with associated object names, paths, destination tenants, and timing details. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
+       "prompt": "Please determine on a scale from 1–100 the confidence that the following Azure Automation Account/Runbook update or creation is malicious or unauthorized. Each entry contains the activity type(automation account or runbook) and the distinct count of how many times an individual user created an automation or runbook account. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/AutomationCreation/",
         "rag_ok": "real_AutomationCreation_wluc62.csv",
         "rag_bad": "bad_AutomationCreation_wluc62.csv",
