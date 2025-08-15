@@ -431,7 +431,7 @@
         "rag_bad": "bad_AzureSuccessAuth_wluc63.csv",
         "cache": "cached_AzureSuccessAuth_wluc63.csv",
         "request_size": 30,
-        "title": "Azure Successful Authentication"
+        "title": "Azure AD Successful Authentication"
         "cache_time": 43800
     }
 }
