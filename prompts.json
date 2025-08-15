@@ -431,7 +431,7 @@
         "rag_bad": "bad_PIMroles_wluc64.csv",
         "cache": "cached_PIMroles_wluc64.csv",
         "request_size": 30,
-        "title": "Azure PIM Role"
+        "title": "Azure AD PIM Role"
         "cache_time": 43800
     }
 }
