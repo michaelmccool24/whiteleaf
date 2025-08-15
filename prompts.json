@@ -431,7 +431,7 @@
         "rag_bad": "bad_NewMFAMethod_wluc65.csv",
         "cache": "cached_NewMFAMethod_wluc65.csv",
         "request_size": 30,
-        "title": "Azure New MFA Method"
+        "title": "Azure AD New MFA Method"
         "cache_time": 43800
     }
 }
