@@ -489,7 +489,7 @@
         "request_size": 30,
         "title": "O365 ApplicationImpersonation Role Assignment"
         "cache_time": 43800
-    }
+    },
     "WLUC61": {
        "prompt": "Please determine on a scale from 1–100 the confidence that this Microsoft Intune device management event represents malicious behavior or policy abuse, such as unauthorized configuration changes, SYSTEM-level code execution, or lateral movement via device management tools. Each entry contains the specific action(ex: created, updated) and the specific Azure operation name(such as DeviceManagementConfigurationPolicyAssignment) for an individual user. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/RemoteManagement/",
@@ -499,7 +499,7 @@
         "request_size": 30,
         "title": "Azure Remote Management"
         "cache_time": 43800
-    }
+    },
     "WLUC62": {
        "prompt": "Please determine on a scale from 1–100 the confidence that the following Azure Automation Account/Runbook update or creation is malicious or unauthorized. Each entry contains the activity type(automation account or runbook) and the distinct count of how many times an individual user created an automation or runbook account. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/AutomationCreation/",
@@ -508,6 +508,16 @@
         "cache": "cached_AutomationCreation_wluc62.csv",
         "request_size": 30,
         "title": "Azure Automation Creation"
+        "cache_time": 43800
+    },
+    "WLUC66": {
+       "prompt": "Please determine on a scale from 1–100 the confidence that these custom domain additions and federated domain configuration updates within Azure Active Directory are malicious. Each entry will contain the activity type, whether that is the addition of a custom or federated domain. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
+        "dir": "./RAG/DomainAddition/",
+        "rag_ok": "real_DomainAddition_wluc66.csv",
+        "rag_bad": "bad_DomainAddition_wluc66.csv",
+        "cache": "cached_DomainAddition_wluc66.csv",
+        "request_size": 30,
+        "title": "Azure AD Domain Addition"
         "cache_time": 43800
     }
 }
