@@ -489,7 +489,7 @@
         "request_size": 30,
         "title": "O365 ApplicationImpersonation Role Assignment"
         "cache_time": 43800
-    }
+    },
     "WLUC61": {
        "prompt": "Please determine on a scale from 1–100 the confidence that this Microsoft Intune device management event represents malicious behavior or policy abuse, such as unauthorized configuration changes, SYSTEM-level code execution, or lateral movement via device management tools. Each entry contains the specific action(ex: created, updated) and the specific Azure operation name(such as DeviceManagementConfigurationPolicyAssignment) for an individual user. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/RemoteManagement/",
@@ -499,7 +499,7 @@
         "request_size": 30,
         "title": "Azure Remote Management"
         "cache_time": 43800
-    }
+    },
     "WLUC62": {
        "prompt": "Please determine on a scale from 1–100 the confidence that the following Azure Automation Account/Runbook update or creation is malicious or unauthorized. Each entry contains the activity type(automation account or runbook) and the distinct count of how many times an individual user created an automation or runbook account. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/AutomationCreation/",
@@ -509,5 +509,14 @@
         "request_size": 30,
         "title": "Azure Automation Creation"
         "cache_time": 43800
-    }
+    },
+    "WLUC64": {
+       "prompt": "Please determine on a scale from 1–100 the confidence that this Azure Active Directory Private Identity Management role assignment is malicious. Each entry contains the operation name which is the action of assigning a specific role to an user and the activity type which is either activating or assigning a role. Return only integers, nothing else. Return the results as a newline separated list with no other characters or stylistic elements.",
+        "dir": "./RAG/PIMroles/",
+        "rag_ok": "real_PIMroles_wluc64.csv",
+        "rag_bad": "bad_PIMroles_wluc64.csv",
+        "cache": "cached_PIMroles_wluc64.csv",
+        "request_size": 30,
+        "title": "Azure AD PIM Role"
+        "cache_time": 43800
 }
