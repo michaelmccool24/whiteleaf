@@ -518,4 +518,15 @@
         "cache": "cached_AzureSuccessAuth_wluc63.csv",
         "request_size": 30,
         "title": "Azure AD Successful Authentication"
+    },
+    "WLUC64": {
+       "prompt": "Please determine on a scale from 1–100 the confidence that this Azure Active Directory Private Identity Management role assignment is malicious. Each entry contains the operation name which is the action of assigning a specific role to an user and the activity type which is either activating or assigning a role. Return only integers, nothing else. Return the results as a newline separated list with no other characters or stylistic elements.",
+        "dir": "./RAG/PIMroles/",
+        "rag_ok": "real_PIMroles_wluc64.csv",
+        "rag_bad": "bad_PIMroles_wluc64.csv",
+        "cache": "cached_PIMroles_wluc64.csv",
+        "request_size": 30,
+        "title": "Azure AD PIM Role"
+        "cache_time": 43800
+
 }
