@@ -458,7 +458,7 @@
         "rag_bad": "bad_MultiAccManipulation_wluc57.csv",
         "cache": "cached_MultiAccManipulation_wluc57.csv",
         "request_size": 30,
-        "title": "Azure Multi-Account Manipulation"
+        "title": "Windows Multi-Account Manipulation"
     },
     "WLUC58": {
        "prompt": "Please determine on a scale from 1-100 the confidence that the privilege escalation of the user or service prinicipal within Azure Active Directory is malicious. Each entry contains an assignment type which tells you if it was an user or service principal who was assigned a privileged role and a role which tells you what privileged role was assigned. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
@@ -477,7 +477,7 @@
         "rag_bad": "bad_0365ComplianceContent_wluc59.csv",
         "cache": "cached_0365ComplianceContent_wluc59.csv",
         "request_size": 30,
-        "title": "Azure 0365 Compliance Content Search"
+        "title": "O365 Compliance Content Search"
         "cache_time": 43800
     },
     "WLUC60": {
@@ -510,6 +510,36 @@
         "title": "Azure Automation Creation"
         "cache_time": 43800
     },
+    "WLUC63": {
+       "prompt": "Please determine on a scale from 1–100 the confidence that these successful Azure Active Directory authentications represent suspicious behavior. Each entry contains the method used to authenticate into Azure Active Directory, whether it be single-factor authentication or the use of powershell cmdlets. Use the method name to determine the probability that the authentication has malicious intent. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
+        "dir": "./RAG/AzureSuccessAuth/",
+        "rag_ok": "real_AzureSuccessAuth_wluc63.csv",
+        "rag_bad": "bad_AzureSuccessAuth_wluc63.csv",
+        "cache": "cached_AzureSuccessAuth_wluc63.csv",
+        "request_size": 30,
+        "title": "Azure AD Successful Authentication"
+        "cache_time": 43800
+    },  
+    "WLUC64": {
+       "prompt": "Please determine on a scale from 1–100 the confidence that this Azure Active Directory Private Identity Management role assignment is malicious. Each entry contains the operation name which is the action of assigning a specific role to an user and the activity type which is either activating or assigning a role. Return only integers, nothing else. Return the results as a newline separated list with no other characters or stylistic elements.",
+        "dir": "./RAG/PIMroles/",
+        "rag_ok": "real_PIMroles_wluc64.csv",
+        "rag_bad": "bad_PIMroles_wluc64.csv",
+        "cache": "cached_PIMroles_wluc64.csv",
+        "request_size": 30,
+        "title": "Azure AD PIM Role"
+        "cache_time": 43800
+    },
+    "WLUC65": {
+       "prompt": "Please determine on a scale from 1–100 your confidence that this activity indicates an adversary attempting to modify or add new multi-factor authentication methods to an Azure AD account. If the operation name is equal to 'update user', each entry will contain the old value, new value, and activity_type. The old and new value refers to the old MFA configuration(old value) that was updated to the new configuration(new value). The activity type refers to the specifc action taken, either 'update user' or 'User registered security info' in this case. If the activity type is not 'update user', each entry will only contain the activity type. Return only integers, nothing else. Return the results as a newline separated list with no other characters or stylistic elements.",
+        "dir": "./RAG/NewMFAMethod/",
+        "rag_ok": "real_NewMFAMethod_wluc65.csv",
+        "rag_bad": "bad_NewMFAMethod_wluc65.csv",
+        "cache": "cached_NewMFAMethod_wluc65.csv",
+        "request_size": 30,
+        "title": "Azure AD New MFA Method"
+        "cache_time": 43800
+    },
     "WLUC66": {
        "prompt": "Please determine on a scale from 1–100 the confidence that these custom domain additions and federated domain configuration updates within Azure Active Directory are malicious. Each entry will contain the activity type, whether that is the addition of a custom or federated domain. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/DomainAddition/",
@@ -519,5 +549,6 @@
         "request_size": 30,
         "title": "Azure AD Domain Addition"
         "cache_time": 43800
-    }
+  
+    
 }
