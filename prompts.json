@@ -539,7 +539,16 @@
         "request_size": 30,
         "title": "Azure AD New MFA Method"
         "cache_time": 43800
+    },
+    "WLUC66": {
+       "prompt": "Please determine on a scale from 1–100 the confidence that these custom domain additions and federated domain configuration updates within Azure Active Directory are malicious. Each entry will contain the activity type, whether that is the addition of a custom or federated domain. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
+        "dir": "./RAG/DomainAddition/",
+        "rag_ok": "real_DomainAddition_wluc66.csv",
+        "rag_bad": "bad_DomainAddition_wluc66.csv",
+        "cache": "cached_DomainAddition_wluc66.csv",
+        "request_size": 30,
+        "title": "Azure AD Domain Addition"
+        "cache_time": 43800
   
     
-
 }
