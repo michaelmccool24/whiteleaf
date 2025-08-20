@@ -553,7 +553,7 @@
   
     },
     "WLUC67": {
-       "prompt": "Please determine on a scale from 1–100 the confidence that the OAuth applications created by an user or service principal within Azure Active Directory were created with malicious intent. Each entry will contain the actor type(user or service principal), unique applications(counted by display name), and the count of applications made. Each entry will be formatted like this: actor_type > unique apps > count. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
+       "prompt": "Please determine on a scale from 1–100 the confidence that the user or service principal activity of creating OAuth applications within Azure Active Directory was malicious. Each entry will contain the actor type (user or service principal), unique applications interacted with by the user/service principal(counted by display name), and the count of OAuth applications made. Each entry will be formatted like this: actor_type > unique apps > count. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/AzureSPCreation/",
         "rag_ok": "real_AzureSPCreation_wluc67.csv",
         "rag_bad": "bad_AzureSPCreation_wluc67.csv",
