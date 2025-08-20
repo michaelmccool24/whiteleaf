@@ -509,6 +509,7 @@
         "request_size": 30,
         "title": "Azure Automation Creation"
         "cache_time": 43800
+   
     },
     "WLUC63": {
        "prompt": "Please determine on a scale from 1–100 the confidence that these successful Azure Active Directory authentications represent suspicious behavior. Each entry contains the method used to authenticate into Azure Active Directory, whether it be single-factor authentication or the use of powershell cmdlets. Use the method name to determine the probability that the authentication has malicious intent. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
@@ -550,5 +551,14 @@
         "title": "Azure AD Domain Addition"
         "cache_time": 43800
   
-    
+    },
+    "WLUC67": {
+       "prompt": "Please determine on a scale from 1–100 the confidence that the OAuth applications created by an user or service principal within Azure Active Directory were created with malicious intent. Each entry will contain the actor type(user or service principal), unique applications(counted by display name), and the count of applications made. Each entry will be formatted like this: actor_type > unique apps > count. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
+        "dir": "./RAG/AzureSPCreation/",
+        "rag_ok": "real_AzureSPCreation_wluc67.csv",
+        "rag_bad": "bad_AzureSPCreation_wluc67.csv",
+        "cache": "cached_AzureSPCreation_wluc67.csv",
+        "request_size": 30,
+        "title": "Azure AD SP Creation"
+        "cache_time": 43800
 }
