@@ -561,4 +561,14 @@
         "request_size": 30,
         "title": "Azure AD SP Creation"
         "cache_time": 43800
+    },
+    "WLUC68": {
+       "prompt": "Please determine on a scale from 1–100 the confidence that these Multi-Factor Authentication attempts failures within Azure Active Directory are malicious. Each entry contains the failure type(classifies why the attempt failed) and the count of how many times MFA authentication was attempted. The failure type and count are separated by a '>' sign. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
+        "dir": "./RAG/AzureMFARequest/",
+        "rag_ok": "real_AzureMFARequest_wluc68.csv",
+        "rag_bad": "bad_AzureMFARequest_wluc68.csv",
+        "cache": "cached_AzureMFARequest_wluc68.csv",
+        "request_size": 30,
+        "title": "Azure AD MFA Requests"
+        "cache_time": 43800
 }
