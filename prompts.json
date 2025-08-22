@@ -571,4 +571,15 @@
         "request_size": 30,
         "title": "Azure AD MFA Requests"
         "cache_time": 43800
+    
+    },
+    "WLUC71": {
+       "prompt": "Please determine on a scale from 1–100 the confidence that these permission manipulations and role assignments within Azure Active Directory are malicious. Each entry will contain the name of the action performed on the application or user. If the entry contains the name, 'full access as app' or 'privilege graph API', these refer to an application being given sensitive entitlements ID's. The 'full access as app' ID is dc890d15-9560-4a4c-9b7f-a736ec74ec40. The 'privilege graph API' ID can be '1bfefb4e-e0b5-418b-a88f-73c46d2cc8e9', '06b708a9-e830-4db3-a914-8e69da51d44f', or '9e3f62cf-ca93-4989-b6ce-bf83c28f9fe8'. If the entry contains one of the names, 'Privileged Role: Global Administrator', 'Privileged Role: Authentication Administrator', or 'Privileged Role Assignment', this means that an user was given that specific privileged role. Assess risk based on the level of privilege given to the application or user. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
+        "dir": "./RAG/AzureRolePermAssignment/",
+        "rag_ok": "real_AzureRolePermAssignment_wluc71.csv",
+        "rag_bad": "bad_AzureRolePermAssignment_wluc71.csv",
+        "cache": "cached_AzureRolePermAssignment_wluc71.csv",
+        "request_size": 30,
+        "title": "Azure AD Role and Permission Assignment"
+        "cache_time": 43800
 }
