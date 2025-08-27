@@ -550,7 +550,6 @@
         "request_size": 30,
         "title": "Azure AD Domain Addition"
         "cache_time": 43800
-  
     },
     "WLUC67": {
        "prompt": "Please determine on a scale from 1–100 the confidence that the user or service principal activity of creating OAuth applications within Azure Active Directory was malicious. Each entry will contain the actor type (user or service principal), unique applications interacted with by the user/service principal(counted by display name), and the count of OAuth applications made. Each entry will be formatted like this: actor_type > unique apps > count. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
@@ -561,7 +560,6 @@
         "request_size": 30,
         "title": "Azure AD SP Creation"
         "cache_time": 43800
-    
     },
     "WLUC68": {
        "prompt": "Please determine on a scale from 1–100 the confidence that these Multi-Factor Authentication attempts failures within Azure Active Directory are malicious. Each entry contains the failure type(classifies why the attempt failed) and the count of how many times MFA authentication was attempted. The failure type and count are separated by a '>' sign. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
@@ -572,10 +570,9 @@
         "request_size": 30,
         "title": "Azure AD MFA Requests"
         "cache_time": 43800
-    
     },
     "WLUC69": {
-       "prompt": "Please determine on a scale from 1–100 the confidence that these Azure AD authentication attempts represent a password spraying attack from mutliple sources/ip's to one target. Each entry contains the count(number of authentication attempts), unique users(how many different users are trying to authenticate), and unique ip's(how many different ip addresses are trying to authenticate. This is how this data is formatted: count > unique users > unique ip's. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
+       "prompt": "Please determine on a scale from 1–100 the confidence that these Azure AD authentication attempts represent a many-to-one password spraying attack using potentially multiple usernames and source IPs on a single target. Each entry contains the count (number of authentication attempts), unique users (how many different usernames are used to attempt to authenticate), and unique IPs (how many different IP addresses are trying to authenticate). This is how this data is formatted: count > unique users > unique IPs. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
         "dir": "./RAG/AzureManytoOneAuthSpike/",
         "rag_ok": "real_AzureManytoOneAuthSpike_wluc69.csv",
         "rag_bad": "bad_AzureManytoOneAuthSpike_wluc69.csv",
@@ -583,4 +580,5 @@
         "request_size": 30,
         "title": "Azure AD Many-to-One Authentication Spike "
         "cache_time": 43800
+    }
 }
