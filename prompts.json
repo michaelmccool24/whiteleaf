@@ -580,5 +580,14 @@
         "request_size": 30,
         "title": "Azure AD Many-to-One Authentication Spike "
         "cache_time": 43800
-    }
-}
+    
+    },
+    "WLUC70": {
+       "prompt": "Please determine on a scale from 1–100 the confidence that these Azure AD authentication attempts by a single user are indicative of malicious intent. Each entry will contain the number of authentication attempts by a individual user. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
+        "dir": "./RAG/AzureAbnormalSingleUserAuth/",
+        "rag_ok": "real_AzureAbnormalSingleUserAuth_wluc70.csv",
+        "rag_bad": "bad_AzureAbnormalSingleUserAuth_wluc70.csv",
+        "cache": "cached_AzureAbnormalSingleUserAuth_wluc70.csv",
+        "request_size": 30,
+        "title": "Azure AD Abnormal Single User Failed Authentication"
+        "cache_time": 43800
