@@ -550,6 +550,7 @@
         "request_size": 30,
         "title": "Azure AD Domain Addition"
         "cache_time": 43800
+    
     },
     "WLUC67": {
        "prompt": "Please determine on a scale from 1–100 the confidence that the user or service principal activity of creating OAuth applications within Azure Active Directory was malicious. Each entry will contain the actor type (user or service principal), unique applications interacted with by the user/service principal(counted by display name), and the count of OAuth applications made. Each entry will be formatted like this: actor_type > unique apps > count. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
@@ -560,6 +561,7 @@
         "request_size": 30,
         "title": "Azure AD SP Creation"
         "cache_time": 43800
+    
     },
     "WLUC68": {
        "prompt": "Please determine on a scale from 1–100 the confidence that these Multi-Factor Authentication attempts failures within Azure Active Directory are malicious. Each entry contains the failure type(classifies why the attempt failed) and the count of how many times MFA authentication was attempted. The failure type and count are separated by a '>' sign. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
@@ -570,6 +572,7 @@
         "request_size": 30,
         "title": "Azure AD MFA Requests"
         "cache_time": 43800
+   
     },
     "WLUC69": {
        "prompt": "Please determine on a scale from 1–100 the confidence that these Azure AD authentication attempts represent a many-to-one password spraying attack using potentially multiple usernames and source IPs on a single target. Each entry contains the count (number of authentication attempts), unique users (how many different usernames are used to attempt to authenticate), and unique IPs (how many different IP addresses are trying to authenticate). This is how this data is formatted: count > unique users > unique IPs. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
@@ -591,3 +594,13 @@
         "request_size": 30,
         "title": "Azure AD Abnormal Single User Failed Authentication"
         "cache_time": 43800
+    
+    },
+    "WLUC71": {
+       "prompt": "Please determine on a scale from 1–100 the confidence that these permission manipulations and role assignments within Azure Active Directory are malicious. Each entry will contain the name of the action performed on the application or user. If the entry contains the name, 'full access as app' or 'privilege graph API', these refer to an application being given sensitive entitlements ID's. The 'full access as app' ID is dc890d15-9560-4a4c-9b7f-a736ec74ec40. The 'privilege graph API' ID can be '1bfefb4e-e0b5-418b-a88f-73c46d2cc8e9', '06b708a9-e830-4db3-a914-8e69da51d44f', or '9e3f62cf-ca93-4989-b6ce-bf83c28f9fe8'. If the entry contains one of the names, 'Privileged Role: Global Administrator', 'Privileged Role: Authentication Administrator', or 'Privileged Role Assignment', this means that an user was given that specific privileged role. Assess risk based on the level of privilege given to the application or user. Return only integers, nothing else. Return the results as a newline seperated list with no other characters or stylistic elements.",
+        "dir": "./RAG/AzureRolePermAssignment/",
+        "rag_ok": "real_AzureRolePermAssignment_wluc71.csv",
+        "rag_bad": "bad_AzureRolePermAssignment_wluc71.csv",
+        "cache": "cached_AzureRolePermAssignment_wluc71.csv",
+        "request_size": 30,
+        "title": "Azure AD Role and Permission Assignment"
